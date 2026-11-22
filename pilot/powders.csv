@@ -1,0 +1,11 @@
+powder_id,stage,candidate,nominal_x,independent_block,status
+X0-B1,pilot,M0,0,1,planned
+X25-B1,pilot,M25,0.25,1,planned
+X50-B1,pilot,M50,0.50,1,planned
+X0-B2,pilot,M0,0,2,planned
+X25-B2,pilot,M25,0.25,2,planned
+X50-B2,pilot,M50,0.50,2,planned
+A-C1,confirmation,locked_A,,3,planned
+B-C1,confirmation,locked_B,,3,planned
+A-C2,confirmation,locked_A,,4,planned
+B-C2,confirmation,locked_B,,4,planned

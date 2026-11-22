@@ -1,0 +1,45 @@
+{
+  "sha256": "ff975376909a2101e86495f59931c2148094342c40fc21ac8004349c60cf49a4",
+  "result": {
+    "archive": {
+      "sets": 366,
+      "energy_frames": 131670,
+      "consistent_EF": 131670,
+      "consistent_EFV": 131670,
+      "strict_4element_formula_frames": {
+        "Li6PS5Cl": 862,
+        "Li39P2S10Cl2": 1168
+      },
+      "unique_reduced_formulas": 176,
+      "distinct_elements": [
+        "Al",
+        "As",
+        "B",
+        "Br",
+        "Cl",
+        "Dy",
+        "Er",
+        "Ga",
+        "Ge",
+        "Ho",
+        "I",
+        "In",
+        "Li",
+        "Lu",
+        "O",
+        "P",
+        "S",
+        "Sb",
+        "Sc",
+        "Se",
+        "Si",
+        "Sn",
+        "Ta",
+        "Tm",
+        "Y",
+        "Yb",
+        "Zr"
+      ]
+    }
+  }
+}

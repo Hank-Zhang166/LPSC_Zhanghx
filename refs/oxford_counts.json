@@ -1,0 +1,26 @@
+{
+  "sha256": "a116c6702c3632085783e6b6801a7f2e33721a8b9080c0438d7e0fec2501bfac",
+  "result": {
+    "member": "230923_PBEsol_28100.extxyz",
+    "frames": 28100,
+    "atom_counts": {
+      "52": 22500,
+      "48": 2800,
+      "56": 2800
+    },
+    "frames_by_reduced_formula": {
+      "Li6PS5Cl": 22500,
+      "Li5PS4Cl2": 2800,
+      "Li7PS6": 2800
+    },
+    "header_key_counts": {
+      "Lattice": 28100,
+      "Properties": 28100,
+      "energy": 28100,
+      "stress": 28100,
+      "free_energy": 28100,
+      "pbc": 28100
+    },
+    "unique_full_frame_bytes": 28100
+  }
+}

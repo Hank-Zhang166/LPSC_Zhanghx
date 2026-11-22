@@ -1,0 +1,59 @@
+{
+  "sha256": "00f74084326f2ce1d2f5bce7021e0708a99b1b5a6ffa87e5f67beb133485270a",
+  "result": {
+    "train": {
+      "sets": 82,
+      "energy_frames": 54771,
+      "consistent_EF": 54771,
+      "consistent_EFV": 54771,
+      "strict_4element_formula_frames": {
+        "Li6PS5Cl": 1172
+      },
+      "unique_reduced_formulas": 41,
+      "distinct_elements": [
+        "Al",
+        "As",
+        "B",
+        "Br",
+        "Cl",
+        "Ga",
+        "Ge",
+        "I",
+        "Li",
+        "O",
+        "P",
+        "S",
+        "Sb",
+        "Si",
+        "Sn"
+      ]
+    },
+    "validation": {
+      "sets": 41,
+      "energy_frames": 4900,
+      "consistent_EF": 4900,
+      "consistent_EFV": 4900,
+      "strict_4element_formula_frames": {
+        "Li6PS5Cl": 200
+      },
+      "unique_reduced_formulas": 41,
+      "distinct_elements": [
+        "Al",
+        "As",
+        "B",
+        "Br",
+        "Cl",
+        "Ga",
+        "Ge",
+        "I",
+        "Li",
+        "O",
+        "P",
+        "S",
+        "Sb",
+        "Si",
+        "Sn"
+      ]
+    }
+  }
+}

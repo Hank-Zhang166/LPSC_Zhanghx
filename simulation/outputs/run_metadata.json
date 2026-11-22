@@ -1,0 +1,116 @@
+{
+  "python": "3.14.6",
+  "run_utc": "2026-11-22T16:35:31.499720+00:00",
+  "seed_base": 731900,
+  "paired_replicates_v0": 5000,
+  "paired_replicates_per_stress": 1000,
+  "scenario_overrides": {
+    "V0": {},
+    "pilot6": {
+      "n_candidates": 6
+    },
+    "late_xrd": {
+      "durations.xreview": [
+        18,
+        0.4
+      ]
+    },
+    "expensive_false_drop": {
+      "opportunity_loss": 50000,
+      "phase_error": 0.15
+    },
+    "gpu_slack": {
+      "capacity.gpu": 8
+    },
+    "fixed_sufficient": {
+      "phys.biased_share": 0
+    },
+    "slow_acceptance": {
+      "durations.train": [
+        24,
+        0
+      ],
+      "durations.validate": [
+        16,
+        0
+      ]
+    },
+    "exhaustive_confirmation": {
+      "all_confirm": true
+    },
+    "dft_0.2x": {
+      "durations.dft_frame": [
+        0.2,
+        0
+      ]
+    },
+    "dft_5x": {
+      "durations.dft_frame": [
+        5,
+        0
+      ]
+    },
+    "dft_10x": {
+      "durations.dft_frame": [
+        10,
+        0
+      ]
+    },
+    "no_gain": {
+      "fit.gain_lo": 0,
+      "fit.gain_hi": 0
+    },
+    "fail_all_fits": {
+      "fit.accept": 0
+    },
+    "favorable_gain": {
+      "fit.accept": 1,
+      "fit.gain_lo": 0.8,
+      "fit.gain_hi": 1
+    },
+    "freeze_48": {
+      "freeze": 48
+    },
+    "freeze_144": {
+      "freeze": 144
+    },
+    "phase_low": {
+      "phase_prior": [
+        0.15,
+        0.2,
+        0.65
+      ]
+    },
+    "phase_high": {
+      "phase_prior": [
+        0.45,
+        0.2,
+        0.35
+      ]
+    },
+    "outage": {
+      "outage_hours": 24,
+      "retry_probability": 0.05
+    },
+    "half_wet_time": {
+      "wet_factor": 0.5
+    },
+    "double_wet_time": {
+      "wet_factor": 2
+    },
+    "half_wet_price": {
+      "wet_price_factor": 0.5
+    },
+    "double_wet_price": {
+      "wet_price_factor": 2
+    }
+  },
+  "event_trace_seed": 731900,
+  "event_trace_selection": "first of 100 fixed seeds with an accepted B4 version; demonstration only",
+  "files_sha256": {
+    "simulation\\run_study.py": "50327bbdc858868f1b3f8cda597c489b3cf4d83c8c5cc7e7a360c3ba1962c40b",
+    "simulation\\minimal_des.py": "3d099afb3facb9267fb53b12405620a99804abfe44e86b0733db259a2a7a8799",
+    "configs\\assumptions.yaml": "cce87811bb46b1db473f6225824ebd6ab5cc5342ce9b0a9bc3964607fa9d1cab",
+    "configs\\decision_policies.yaml": "3c9e42dd03db0823aa066ef660227156db7c3ce0d62fc8c9eef3101b218880c9"
+  }
+}

@@ -1,0 +1,61 @@
+# 研究实验配置；不作为 dp train 的原生 input.json 直接读取。
+schema_version: "1.0"
+status: proposed
+inspected_on: "2026-11-23"
+backend_reference: "DeePMD-kit v3.2.0"
+weight_release: "v20260805"
+weight_revision: "173bfd5a26f90a756ee891777270ef117078d9be"
+weight_license: CC-BY-NC-4.0
+published_weight_pointers:
+  plus_sha256: 6820a320dc241a4002e6c257ad21983950df178b1f80271a6e6af199adb18567
+  neo_sha256: fd7f34ae28f921201e4a0328ddf56179892752084f8363e7796038201471c989
+domain:
+  x: [0, 0.25, 0.5]
+  baseline_models: [DPA4-Plus-OMat24, DPA4-Neo-OMat24, DPA-SSE]
+  primary_reference: PBEsol_with_matched_pseudopotentials_and_settings
+  unit_energy: eV
+  unit_force: eV_per_angstrom
+  unit_virial: eV
+split:
+  group_keys: [parent_id, trajectory_id, structure_family, duplication_cluster]
+  within_domain_fraction: [0.70, 0.15, 0.15]
+  external_holdout: entire_composition_or_migration_family
+  seeds: [17, 43, 89]
+sampling:
+  label_budgets_cumulative: [16, 32, 64]
+  arms: [random, committee_diverse, wet_constrained_committee_diverse]
+  compatible_reference_replay_target_source: [0.6, 0.4]
+common:
+  batch_frames: 2
+  dev_every_steps: 500
+  checkpoint_every_steps: 500
+  ema_primary: false
+  patience_evaluations: 4
+  min_relative_dev_gain: 0.01
+  loss:
+    type: ener
+    loss_func: mse
+    intensive_ener_virial: true
+    f_use_norm: false
+    start_pref_e: 1
+    limit_pref_e: 1
+    start_pref_f: 50
+    limit_pref_f: 5
+    start_pref_v: 0
+    limit_pref_v: 0
+modes:
+  M0: {method: fixed_checkpoints, baseline_bias_subarm: training_split_only}
+  M1: {method: scratch, lr_start: 0.001, lr_end: 0.000001, primary_steps: 10000, optional_extended_steps: 50000}
+  M2: {method: full_finetune, lr_start: 0.0001, lr_end: 0.000001, max_steps: 10000}
+  M3: {method: single_task_lora, rank: 16, alpha: 16, lr_start: 0.0001, lr_end: 0.000001, max_steps: 10000}
+  M4: {method: frozen_embedding_ridge, ridge_grid: [0.1, 1, 10], comparison: conditions_only}
+  M5: {method: two_reference_heads, branch_probability: [0.5, 0.5], lr_start: 0.0001, lr_end: 0.000001, max_steps: 10000}
+  M6: {method: teacher_to_dpa4c, lr_start: 0.001, lr_end: 0.000001, max_steps: 20000, batch_frames: 2}
+gates_proposed:
+  energy_rmse_meV_per_atom_max: 10
+  key_family_force_rmse_eV_per_angstrom_max: 0.10
+  key_path_deltaE_abs_error_eV_max: 0.05
+  source_relative_degradation_max: 0.10
+  h1_key_force_rmse_relative_gain_min: 0.10
+  student_log10_D_difference_max: 0.15
+  student_speedup_min: 1.5

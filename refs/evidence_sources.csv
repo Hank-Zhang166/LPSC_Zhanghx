@@ -1,0 +1,73 @@
+parameter_or_evidence,source_type,source_or_contract,supports_or_v0_value,limitation_or_calibration
+OX-PBEsol public pool,file audit,E03; refs/oxford_counts.json; refs/oxford_force_profile.json,"structure and label stratum, frame budget for future H1 learning curve","cannot set DES service time, prediction error or FT efficacy from force magnitudes"
+SSE-VASP public pool,file audit,E01; refs/sse_vasp_counts.json,DPA-SSE scope and compatible reference frame pool,cannot treat publisher validation as virgin external holdout
+SSE-ABACUS,file audit and publisher report,E19; AIS #260; refs/sse_abacus_counts.json,131670 actual frames incl. 862 Li6PS5Cl; public summary approx. 127000,keep ABACUS and VASP labels separate pending bridge
+DaRUS GB and continuum,file and record audit,E06/E07; refs/darus4510_counts.json,hypothesis about GB/bulk and near-duplicate audit,not instrument queue logs
+OBELiX experimental prior,file audit,E20; refs/obelix_counts.json,sample-level reported conductivity conditioned on matching,"not DFT labels, service times, nor true-positive rate"
+Future pilot log,planned measurement,docs/WET_EXPERIMENT.md; schemas/task_event.md,"arrival/start/finish/release/freeze, failures, accepted versions and costs","no real pilot observed; require consent, timestamps and independent confirmation"
+n_candidates,assumption,configs/assumptions.yaml::n_candidates / V0 2026-11-23,24 候选/压力队列,另做 6 个先导候选等价批次
+arrival_gap,assumption,configs/assumptions.yaml::arrival_gap / V0 2026-11-23,4 h/候选,情景节拍，可改到零以模拟同时提交
+horizon,assumption,configs/assumptions.yaml::horizon / V0 2026-11-23,480 h,共同右删失上限，失败不从总体时间中移除
+freeze,assumption,configs/assumptions.yaml::freeze / V0 2026-11-23,96 h/候选,另测 48 / 144 h
+capacity.furnace,assumption,configs/assumptions.yaml::capacity / V0 2026-11-23,2 并行槽,GPU 槽扩至 8 做宽松情景
+capacity.xrd,assumption,configs/assumptions.yaml::capacity / V0 2026-11-23,1 并行槽,GPU 槽扩至 8 做宽松情景
+capacity.eis,assumption,configs/assumptions.yaml::capacity / V0 2026-11-23,1 并行槽,GPU 槽扩至 8 做宽松情景
+capacity.staff,assumption,configs/assumptions.yaml::capacity / V0 2026-11-23,2 并行槽,GPU 槽扩至 8 做宽松情景
+capacity.gpu,assumption,configs/assumptions.yaml::capacity / V0 2026-11-23,2 并行槽,GPU 槽扩至 8 做宽松情景
+capacity.dft,assumption,configs/assumptions.yaml::capacity / V0 2026-11-23,1 并行槽,GPU 槽扩至 8 做宽松情景
+durations.prep,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[0.45, 0.2] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+durations.synth,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[12, 0.3] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+durations.xrd,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[2, 0.2] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+durations.xreview,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[3, 0.4] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+durations.press,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[4, 0.25] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+durations.eis,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[3, 0.25] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+durations.ereview,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[2, 0.4] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+durations.short,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[2, 0] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+durations.long,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[10, 0] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+durations.dft_frame,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[1, 0] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+durations.train,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[6, 0] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+durations.validate,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[2, 0] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+durations.refine,assumption,configs/assumptions.yaml::durations / V0 2026-11-23,"[2, 0.2] [中位数 h, CV]",DFT 0.2/1/5/10 倍，审核延时和微调验收另扫
+phase_prior,assumption,configs/assumptions.yaml::phase_prior / V0 2026-11-23,"[0.3, 0.2, 0.5] 潜在不相容/含混/相容比例",低不相容 0.15/0.20/0.65 与高不相容 0.45/0.20/0.35
+phase_error,assumption,configs/assumptions.yaml::phase_error / V0 2026-11-23,0.05 每次初相三分类误判概率,错时在另两类均匀抽取；另测 0.15
+success_by_phase,assumption,configs/assumptions.yaml::success_by_phase / V0 2026-11-23,"[0.04, 0.26, 0.58] 潜在合格率/类",情景真值；需按先导校准
+phys.prior_accuracy,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.65 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.short_accuracy,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.71 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.long_accuracy,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.88 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.biased_long_accuracy,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.54 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.biased_share,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.32 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.alarm_sens,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.78 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.alarm_fpr,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.13 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.probe_sens,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.87 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.probe_fpr,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.065 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.primary_sens,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.9 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.primary_fpr,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.12 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.confirm_sens,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.93 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.confirm_fpr,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.065 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+phys.refine_accuracy,assumption,configs/assumptions.yaml::phys / V0 2026-11-23,0.82 条件概率,代理观测模型，非公开 DPA4 性能；固定势充分情景令偏差占比为 0
+fit.accept,assumption,configs/assumptions.yaml::fit / V0 2026-11-23,0.72 概率、帧、任务数、h,按验收成功率 0/0.72/1 及增益均匀分布从 0 到有利情景扫描；6 h 为首份标签包训练时长
+fit.gain_lo,assumption,configs/assumptions.yaml::fit / V0 2026-11-23,0.24 概率、帧、任务数、h,按验收成功率 0/0.72/1 及增益均匀分布从 0 到有利情景扫描；6 h 为首份标签包训练时长
+fit.gain_hi,assumption,configs/assumptions.yaml::fit / V0 2026-11-23,0.9 概率、帧、任务数、h,按验收成功率 0/0.72/1 及增益均匀分布从 0 到有利情景扫描；6 h 为首份标签包训练时长
+fit.probe_frames,assumption,configs/assumptions.yaml::fit / V0 2026-11-23,2 概率、帧、任务数、h,按验收成功率 0/0.72/1 及增益均匀分布从 0 到有利情景扫描；6 h 为首份标签包训练时长
+fit.train_frames,assumption,configs/assumptions.yaml::fit / V0 2026-11-23,4 概率、帧、任务数、h,按验收成功率 0/0.72/1 及增益均匀分布从 0 到有利情景扫描；6 h 为首份标签包训练时长
+fit.holdout_frames,assumption,configs/assumptions.yaml::fit / V0 2026-11-23,2 概率、帧、任务数、h,按验收成功率 0/0.72/1 及增益均匀分布从 0 到有利情景扫描；6 h 为首份标签包训练时长
+fit.batch,assumption,configs/assumptions.yaml::fit / V0 2026-11-23,2 概率、帧、任务数、h,按验收成功率 0/0.72/1 及增益均匀分布从 0 到有利情景扫描；6 h 为首份标签包训练时长
+fit.wait,assumption,configs/assumptions.yaml::fit / V0 2026-11-23,8 概率、帧、任务数、h,按验收成功率 0/0.72/1 及增益均匀分布从 0 到有利情景扫描；6 h 为首份标签包训练时长
+fit.additional_h_per_ticket,assumption,configs/assumptions.yaml::fit / V0 2026-11-23,1.2 概率、帧、任务数、h,按验收成功率 0/0.72/1 及增益均匀分布从 0 到有利情景扫描；6 h 为首份标签包训练时长
+retry_probability,assumption,configs/assumptions.yaml::retry_probability / V0 2026-11-23,0.012 每项 XRD/EIS 首次失败概率,仪器质控失败最多重试一次；压力情景可设 0.05
+cost_index.furnace,assumption,configs/assumptions.yaml::cost_index / V0 2026-11-23,1 无量纲成本点/槽时，powder 为点/新粉体,人员与设备同时计价；湿端耗材另计
+cost_index.xrd,assumption,configs/assumptions.yaml::cost_index / V0 2026-11-23,1 无量纲成本点/槽时，powder 为点/新粉体,人员与设备同时计价；湿端耗材另计
+cost_index.eis,assumption,configs/assumptions.yaml::cost_index / V0 2026-11-23,1 无量纲成本点/槽时，powder 为点/新粉体,人员与设备同时计价；湿端耗材另计
+cost_index.staff,assumption,configs/assumptions.yaml::cost_index / V0 2026-11-23,1 无量纲成本点/槽时，powder 为点/新粉体,人员与设备同时计价；湿端耗材另计
+cost_index.gpu,assumption,configs/assumptions.yaml::cost_index / V0 2026-11-23,1 无量纲成本点/槽时，powder 为点/新粉体,人员与设备同时计价；湿端耗材另计
+cost_index.dft,assumption,configs/assumptions.yaml::cost_index / V0 2026-11-23,1 无量纲成本点/槽时，powder 为点/新粉体,人员与设备同时计价；湿端耗材另计
+cost_index.powder,assumption,configs/assumptions.yaml::cost_index / V0 2026-11-23,3 无量纲成本点/槽时，powder 为点/新粉体,人员与设备同时计价；湿端耗材另计
+cost_cny.furnace,assumption,configs/assumptions.yaml::cost_cny / V0 2026-11-23,45 情景元/槽时，powder 为元/新粉体,人民币计价示例，非实验室报价；另算错误淘汰机会损失
+cost_cny.xrd,assumption,configs/assumptions.yaml::cost_cny / V0 2026-11-23,100 情景元/槽时，powder 为元/新粉体,人民币计价示例，非实验室报价；另算错误淘汰机会损失
+cost_cny.eis,assumption,configs/assumptions.yaml::cost_cny / V0 2026-11-23,80 情景元/槽时，powder 为元/新粉体,人民币计价示例，非实验室报价；另算错误淘汰机会损失
+cost_cny.staff,assumption,configs/assumptions.yaml::cost_cny / V0 2026-11-23,90 情景元/槽时，powder 为元/新粉体,人民币计价示例，非实验室报价；另算错误淘汰机会损失
+cost_cny.gpu,assumption,configs/assumptions.yaml::cost_cny / V0 2026-11-23,18 情景元/槽时，powder 为元/新粉体,人民币计价示例，非实验室报价；另算错误淘汰机会损失
+cost_cny.dft,assumption,configs/assumptions.yaml::cost_cny / V0 2026-11-23,30 情景元/槽时，powder 为元/新粉体,人民币计价示例，非实验室报价；另算错误淘汰机会损失
+cost_cny.powder,assumption,configs/assumptions.yaml::cost_cny / V0 2026-11-23,180 情景元/槽时，powder 为元/新粉体,人民币计价示例，非实验室报价；另算错误淘汰机会损失
+opportunity_loss,assumption,configs/assumptions.yaml::opportunity_loss / V0 2026-11-23,0 元/错淘汰合格候选,敏感性取每例 50000 元，单列决策总损失
+outage_hours,assumption,configs/assumptions.yaml::outage_hours / V0 2026-11-23,0 h,非零时在 t=24 h 以后首个空闲 XRD 槽进入检修，额外资源故障压力试验

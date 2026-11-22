@@ -1,0 +1,12 @@
+parameter_group,source_type,v0_input,reference_or_entrypoint,boundary,calibration_action
+候选与设备容量,assumption,任务书4.3与本项目情景,configs/assumptions.yaml,没有实地班表,记录人员班次设备日历及并行占用
+湿端服务与审核延迟,assumption,任务书4.3与本项目情景,configs/assumptions.yaml,公开原子库无实验排队日志,采集提交开始结束发布四时间戳及重试故障
+干端时长与单价,assumption,2和10 GPUh及1槽时每DFT帧,configs/assumptions.yaml,示例金额不含固定资产摊销,同条件记录模型和机器与参考设置的耗时和成本
+初相风险与决策窗口,assumption,三类相概率与96小时,configs/assumptions.yaml,未取得合作方历史QC记录,盲审双读者和独立确认估计混淆矩阵
+原子环境误差与偏差诊断,assumption,V0使用可改条件代理概率,https://zenodo.org/records/23226230,未用公开池拟合DES的误差或速度,按组成与族隔离后用独立DFT比较E/F并拟合
+输运与多尺度映射,literature_proxy,V0未用其数值抽样,https://doi.org/10.18419/DARUS-4510,后续结构与多尺度对照入口,取得轨迹和元数据后做有效性及域覆盖检验
+样品性质先验,literature_proxy,V0未用其数值抽样,https://github.com/NRC-Mila/OBELiX,实验电导和结构信息不提供队列或力标签,按相温度压片及来源核对后仅构建性质先验
+适配成功率与增益,assumption,接受0.72且修复比例均匀抽样,configs/assumptions.yaml,没有实训和独立留出曲线,独立DFT及MD排序验收并做从零到有利的扫描
+人民币与成本点,assumption,任务按槽时加新粉体耗材,configs/assumptions.yaml,为情景计价并非机构报价,以资源台账与合作方核准报价替换
+错淘汰机会损失,assumption,基准零压力试验每例五万元,configs/assumptions.yaml,价值取决于研究目标,合作前预注册损失函数与确认门槛
+随机时序比较,simulated,5000基准配对及1000每个压力情景,simulation/outputs/run_metadata.json,仅计算归档不代表实验成功,按脚本复算并核验事件不超前

@@ -1,0 +1,14 @@
+{
+  "sha256": "da98f04242833cd806e0b178b9787e2788fe20d3860558b1d356601e229f4aa0",
+  "result": {
+    "frames_in_each_file": {
+      "data/mtp_sigma3_1-12/training_set": 2967,
+      "data/mtp_orderedbulk/training_set": 2855,
+      "data/mtp_sigma5/training_set": 2794,
+      "data/mtp_disorderedbulk/training_set": 2794,
+      "data/mtp_sigma3_-111/training_set": 2922
+    },
+    "total_occurrences": 14332,
+    "unique_identical_cfg_blocks": 6694
+  }
+}
