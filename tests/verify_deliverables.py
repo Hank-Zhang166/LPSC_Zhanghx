@@ -46,7 +46,7 @@ with zipfile.ZipFile(PAPER/'汇报版开题报告_P8.pptx') as z:
         assert len(bodies)==1,(i,'PPT note body')
         note_text='\n'.join(paragraph_text(p,A) for p in bodies[0].iter(A+'p'))
         assert note_text==script[i-1]['speech'],(i,'PPT note differs from script')
-with zipfile.ZipFile(PAPER/'P8_逐页汇报词.docx') as z:
+with zipfile.ZipFile(PAPER/'P8_逐页汇报词_现场朗读版.docx') as z:
     assert z.testzip() is None
     root=ET.fromstring(z.read('word/document.xml'))
     paragraphs=[paragraph_text(p,W) for p in root.iter(W+'p')]
