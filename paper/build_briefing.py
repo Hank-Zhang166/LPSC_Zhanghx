@@ -185,7 +185,7 @@ for i,d in enumerate(SLIDES):
     wf(p.add_run(d['title']),12,False,TEAL,'黑体')
     spoken_paragraph(doc,d['talk'])
 doc.core_properties.title='P8 开题汇报词'
-doc.save(HERE/'P8_逐页汇报词_现场朗读版.docx')
+doc.save(HERE/'P8_逐页汇报词.docx')
 outline='# P8 汇报页序\n\n'+'\n'.join(f"{i:02d}. {d['title']} —— {d['lead']}" for i,d in enumerate(SLIDES,1))
 (HERE/'P8_OUTLINE.md').write_text(outline+'\n',encoding='utf-8')
 
