@@ -181,6 +181,7 @@ subtitle.paragraph_format.space_after=WordPt(10)
 wf(subtitle.add_run('氯富集硫银锗矿的输运分歧与序贯验证'),14,False,TEAL,'黑体')
 for i,d in enumerate(SLIDES):
     p=doc.add_paragraph();p.paragraph_format.keep_with_next=True;p.paragraph_format.space_before=WordPt(6)
+    if i and i%2==0:p.paragraph_format.page_break_before=True
     wf(p.add_run(f'{i+1:02d}　'),11,False,TEAL,'黑体')
     wf(p.add_run(d['title']),12,False,TEAL,'黑体')
     spoken_paragraph(doc,d['talk'])

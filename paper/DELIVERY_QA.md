@@ -13,6 +13,6 @@
 |文献综述与引文|第 2.1 节实引 67 篇学术文献（63 篇期刊、3 篇会议、1 篇预印本），另列 11 项数据与软件资料。文内编号与文末 78 条一一对应。表 2.2 及逐项外部记录标注条件、单位和证据边界|../refs/literature_review.csv、../refs/literature_transport_benchmarks.csv|
 |PDF 与可编辑源|书面 PDF 32 页、汇报 PDF 22 页。PowerPoint 与汇报每页标题一致，Word 汇报词有相同的 22 个逐页讲述段。书面 PDF 内的文献跳转和 78 个外链经核查。同步校准了汇报第 3、4、6、14 页和对应讲稿|../tests/verify_deliverables.py|
 |书面报告标题|逐项比对 Word 和导出 PDF 的 93 项封面标题、各级标题、题注和目录条目，并核对 24 个表头单元格。中文、数字和西文均使用嵌入的 SimHei 常规字形，未检出模拟加粗描边。三张仿真图的内置题名和副题使用同一字体文件绘制|../tests/verify_title_fonts.py、chart_art/|
-|现场汇报词|22 段第一人称口述稿在 Word 中排为 7 页，每段标题与全文同页。逐字核对稿源、Word 和对应的 PowerPoint 演讲者备注|speaker_script.json、../tests/verify_deliverables.py|
+|现场汇报词|面向 AISI 的 DPA4 开发人员，22 段第一人称口述稿在 Word 中排为 11 页，每纸页对应两张幻灯片。模型接口、局部误差与适配验收按版本化源码和实验卡核对。稿源、Word 和对应的 PowerPoint 演讲者备注逐字一致|speaker_script.json、../tests/verify_deliverables.py|
 |决定依据与未决问题|系统费用为情景单价。更换实际仪器、SOP、势权重和数据参考后须重新校准。未执行新 DFT、势训练、MD 或湿实验|P8_CLAIM_AUDIT.md|
 
