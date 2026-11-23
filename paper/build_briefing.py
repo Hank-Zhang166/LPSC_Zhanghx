@@ -21,13 +21,20 @@ ROOT=HERE.parent
 OUT=ROOT/'simulation/outputs'
 slide('公开参考力提供了可直接复算的量级','原始标签实算',
       '按每次 Li 原子出现等权统计。三种组成的中位力模约为 0.49–0.56，P90 约为 1.05–1.14。','force',[],
-      '图 1a　Oxford PBEsol 原文件。本次实算；无势预测参与，文件头未显式标记力单位。','这一页用公开文件做了一次实算。母体记录了五十四万次锂原子出现，绿色点是力模中位数，橙色点是第九十百分位。两端点之间是分布的一部分，不是不确定区间。这张图能帮助我们发现单位或异常量级，下一步会在同构型上减去势的预测力，再谈局域误差。')
+      '图 1a　Oxford PBEsol 原文件。本次实算；无势预测参与，文件头未显式标记力单位。')
 SLIDES.insert(6,SLIDES.pop())
 slide('把整组费用折算到每个确认候选','实算结果  Ⅱ',
       '每确认费用用所有队列的合计费用除以阳性确认总数，保留了零确认队列的消耗。','efficiency',[],
-      '图 7a　DES V0 情景模拟／非实验实证。累计费用与首次确认时间分别计算。','横轴是等到首个独立阳性确认的时间，纵轴是整组二十四个候选的费用。在左下方的是成本感知的 B2，但上一页已经看到它的召回较低。右侧列出每确认一位候选的支出与资源。B4 每个确认约用二点八帧 DFT 和三十二点九共享 GPU 小时；共享 GPU 和 DFT 槽分别计账，不能重复相加。')
+      '图 7a　DES V0 情景模拟／非实验实证。累计费用与首次确认时间分别计算。')
 i=next(i for i,x in enumerate(SLIDES) if x['kind']=='results')
 SLIDES.insert(i+1,SLIDES.pop())
+speeches=json.loads((HERE/'speaker_script.json').read_text(encoding='utf-8'))
+if len(speeches)!=len(SLIDES):
+    raise ValueError('Speaker script and presentation must have the same number of pages.')
+for n,(item,entry) in enumerate(zip(SLIDES,speeches),1):
+    if entry['page']!=n or entry['title']!=item['title'] or not entry['speech'].strip():
+        raise ValueError(f'Speaker script does not match slide {n}.')
+    item['talk']=entry['speech']
 base={r['policy']:r for r in csv.DictReader((OUT/'policy_summary.csv').open(encoding='utf-8-sig')) if r['scenario']=='V0' and r['policy'] in ('B0','B1','B2','B3','B4')}
 effects={(r['scenario'],r['policy'],r['reference'],r['metric']):r for r in csv.DictReader((OUT/'paired_effects.csv').open(encoding='utf-8-sig'))}
 def f(r,k):return float(r[k])
@@ -143,13 +150,19 @@ for n,d in enumerate(SLIDES,1):render(d,n)
 ppt.core_properties.title='氯富集硫银锗矿的输运分歧与序贯验证'
 ppt.save(HERE/'汇报版开题报告_P8.pptx')
 
-def wf(run,size,bold=False,col='23383E',face='微软雅黑'):
+def wf(run,size,bold=False,col='23383E',face='宋体'):
     run.font.name=face;run.bold=bold;run.font.size=WordPt(size);run.font.color.rgb=WColor.from_string(col)
-    run._element.get_or_add_rPr().rFonts.set(qn('w:eastAsia'),face)
+    fonts=run._element.get_or_add_rPr().rFonts
+    for key in ('ascii','hAnsi','eastAsia','cs'):
+        fonts.set(qn('w:'+key),face)
     return run
-def para(doc,content,size=12,bold=False,col=INK,after=6):
-    p=doc.add_paragraph();p.paragraph_format.space_after=WordPt(after);p.paragraph_format.line_spacing=1.45
-    wf(p.add_run(content),size,bold,col);return p
+def spoken_paragraph(doc,content):
+    p=doc.add_paragraph()
+    p.paragraph_format.space_after=WordPt(9)
+    p.paragraph_format.line_spacing=1.45
+    p.paragraph_format.keep_together=True
+    wf(p.add_run(content),14)
+    return p
 def field(p,key):
     a=WE('w:fldSimple');a.set(qn('w:instr'),key);p._p.append(a)
 doc=Document();sec=doc.sections[0]
@@ -161,16 +174,16 @@ sec.top_margin=Cm(1.85);sec.bottom_margin=Cm(1.8)
 sec.header_distance=Cm(.72);sec.footer_distance=Cm(.72)
 wf(sec.header.paragraphs[0].add_run('综合论文训练    /    P8 开题汇报词'),9,False,GRAY)
 foot=sec.footer.paragraphs[0];foot.alignment=WD_ALIGN_PARAGRAPH.RIGHT;wf(foot.add_run('张皓轩     ·     '),9,False,GRAY);field(foot,'PAGE')
-# A shorter opening page leaves room for the title and delivery guidance.
+t=doc.add_paragraph(style='Title')
+wf(t.add_run('开题汇报词'),22,face='黑体')
+subtitle=doc.add_paragraph()
+subtitle.paragraph_format.space_after=WordPt(10)
+wf(subtitle.add_run('氯富集硫银锗矿的输运分歧与序贯验证'),14,False,TEAL,'黑体')
 for i,d in enumerate(SLIDES):
-    if i>=3 and (i-3)%4==0:doc.add_page_break()
-    if i==0:
-        t=doc.add_paragraph(style='Title');wf(t.add_run('开题汇报词'),23,True)
-        para(doc,'氯富集硫银锗矿的输运分歧与序贯验证',15,True,TEAL,4)
-        para(doc,f'逐页对应 {len(SLIDES)} 页汇报 PDF。按正常语速及读图停顿，建议预留 13–16 分钟。',10,False,GRAY,10)
     p=doc.add_paragraph();p.paragraph_format.keep_with_next=True;p.paragraph_format.space_before=WordPt(6)
-    wf(p.add_run(f'{i+1:02d}　'),13,True,TEAL);wf(p.add_run(d['title']),14,True)
-    para(doc,d['talk'],12,False,INK,9)
+    wf(p.add_run(f'{i+1:02d}　'),11,False,TEAL,'黑体')
+    wf(p.add_run(d['title']),12,False,TEAL,'黑体')
+    spoken_paragraph(doc,d['talk'])
 doc.core_properties.title='P8 开题汇报词'
 doc.save(HERE/'P8_逐页汇报词.docx')
 outline='# P8 汇报页序\n\n'+'\n'.join(f"{i:02d}. {d['title']} —— {d['lead']}" for i,d in enumerate(SLIDES,1))

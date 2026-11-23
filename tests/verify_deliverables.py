@@ -1,5 +1,5 @@
 """Check document synchronization, package integrity and the pre-registered experimental units."""
-import csv,re,zipfile
+import csv,json,re,zipfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
 from pypdf import PdfReader
@@ -7,11 +7,26 @@ from pypdf import PdfReader
 ROOT=Path(__file__).resolve().parents[1]
 PAPER=ROOT/'paper'
 A='{http://schemas.openxmlformats.org/drawingml/2006/main}'
+P='{http://schemas.openxmlformats.org/presentationml/2006/main}'
 W='{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
 def normalized(s):
     return ''.join(s.split())
+
+def paragraph_text(paragraph,namespace):
+    controls={namespace+'br':'\n',namespace+'cr':'\n',namespace+'tab':'\t'}
+    parts=[]
+    for node in paragraph.iter():
+        if node.tag==namespace+'t':
+            parts.append(node.text or '')
+        elif node.tag in controls:
+            parts.append(controls[node.tag])
+    return ''.join(parts)
+
 outline=(PAPER/'P8_OUTLINE.md').read_text('utf-8')
 titles=[line.split('. ',1)[1].split(' —— ')[0] for line in outline.splitlines() if re.match(r'^\d+\. ',line)]
+script=json.loads((PAPER/'speaker_script.json').read_text(encoding='utf-8'))
+assert len(titles)==len(script)==22,'Expected 22 speaking sections'
+assert [(row['page'],row['title']) for row in script]==list(enumerate(titles,1)),'Script numbering or titles disagree with outline'
 slides=PdfReader(PAPER/'汇报版开题报告_P8.pdf')
 paper=PdfReader(PAPER/'开题报告_P8.pdf')
 assert len(slides.pages)==len(titles)
@@ -23,14 +38,25 @@ with zipfile.ZipFile(PAPER/'汇报版开题报告_P8.pptx') as z:
         text=''.join(n.text or '' for n in ET.fromstring(z.read(f'ppt/slides/slide{i}.xml')).iter(A+'t'))
         assert normalized(title) in normalized(text),(i,title)
         assert normalized(title) in normalized(slides.pages[i-1].extract_text()),(i,'PDF title')
-        assert f'ppt/notesSlides/notesSlide{i}.xml' in z.namelist()
+        note_name=f'notesSlide{i}.xml'
+        rels=ET.fromstring(z.read(f'ppt/slides/_rels/slide{i}.xml.rels'))
+        assert [r.get('Target') for r in rels if r.get('Type','').endswith('/notesSlide')]==['../notesSlides/'+note_name],(i,'PPT note link')
+        notes=ET.fromstring(z.read('ppt/notesSlides/'+note_name))
+        bodies=[sp for sp in notes.iter(P+'sp') if sp.find(f".//{P}ph[@type='body']") is not None]
+        assert len(bodies)==1,(i,'PPT note body')
+        note_text='\n'.join(paragraph_text(p,A) for p in bodies[0].iter(A+'p'))
+        assert note_text==script[i-1]['speech'],(i,'PPT note differs from script')
 with zipfile.ZipFile(PAPER/'P8_逐页汇报词.docx') as z:
     assert z.testzip() is None
     root=ET.fromstring(z.read('word/document.xml'))
-    paragraphs=[''.join(n.text or '' for n in p.iter(W+'t')) for p in root.iter(W+'p')]
+    paragraphs=[paragraph_text(p,W) for p in root.iter(W+'p')]
+    previous=-1
     for i,title in enumerate(titles,1):
         idx=paragraphs.index(f'{i:02d}　{title}')
+        assert idx>previous,(i,'Word heading order')
+        previous=idx
         assert len(paragraphs[idx+1])>55,(i,'speaking notes')
+        assert paragraphs[idx+1]==script[i-1]['speech'],(i,'Word speech differs from script')
 with zipfile.ZipFile(PAPER/'开题报告_P8.docx') as z:assert z.testzip() is None
 paper_text=normalized(''.join(p.extract_text() for p in paper.pages))
 for needle in ['28,100','131,670','0.247','5,000','独立确认','OBELiX','参考文献']:

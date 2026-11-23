@@ -1,6 +1,7 @@
 """Build all illustrations exclusively from the recorded CSV output; Matplotlib >=3.6."""
 import argparse
 import csv
+import os
 from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
@@ -22,7 +23,26 @@ def read(p):
     with p.open(encoding="utf-8-sig",newline="") as f:
         return list(csv.DictReader(f))
 
-def output(fig,dst,name):
+PAPER_FIGURES={"event_swimlane","policy_comparison","sensitivity"}
+
+def paper_font():
+    configured=os.environ.get("P8_SIMHEI_FONT")
+    path=configured or fm.findfont(fm.FontProperties(family="SimHei",weight="normal"),fallback_to_default=False)
+    face=fm.get_font(path)
+    if face.family_name!="SimHei" or face.style_name.lower()!="regular":
+        raise ValueError("Set P8_SIMHEI_FONT to the original SimHei Regular font file.")
+    return path
+
+def output(fig,dst,name,paper_art=None):
+    if paper_art is not None:
+        if name in PAPER_FIGURES:
+            face=paper_font()
+            for heading in fig.texts:
+                heading.set_fontproperties(fm.FontProperties(fname=face,weight="normal",size=heading.get_fontsize()))
+            paper_art.mkdir(parents=True,exist_ok=True)
+            fig.savefig(paper_art/(name+".png"),dpi=190,facecolor="white",bbox_inches="tight",pad_inches=.12)
+        plt.close(fig)
+        return
     for ext in ("svg","png"):
         fig.savefig(dst/(name+"."+ext),dpi=190,facecolor="white",bbox_inches="tight",pad_inches=.12)
     plt.close(fig)
@@ -35,7 +55,7 @@ def title(fig,left):
     fig.text(.02,1.035,left,ha="left",va="bottom",size=16,weight="bold")
     fig.text(.02,1.005,"DES V0 情景模拟 / 非实验实证",ha="left",va="top",size=9,color="#527074")
 
-def make(dst):
+def make(dst,paper_art=None):
     summary=read(dst/"policy_summary.csv")
     effects=read(dst/"paired_effects.csv")
     events=read(dst/"event_trace.csv")
@@ -53,7 +73,7 @@ def make(dst):
         for k,v in enumerate(x): ax.text(v+max(x)*.032,k,f"{v:.1f}",va="center",size=9)
         style(ax)
     title(fig,"五种政策的确认速度与正确确认率")
-    output(fig,dst,"policy_comparison")
+    output(fig,dst,"policy_comparison",paper_art)
     fig,ax=plt.subplots(figsize=(7.6,3.9))
     for k,r in enumerate(rows):
         x=float(r["restricted_h"]);y=float(r["cost_cny"])/10000.
@@ -64,7 +84,7 @@ def make(dst):
     ax.set_xlabel("首次确认限制平均时间（h）")
     ax.set_ylabel("每个 24 候选队列的资源账单（万元）")
     style(ax);title(fig,"时间与资源费用的取舍")
-    output(fig,dst,"cost_time")
+    output(fig,dst,"cost_time",paper_art)
     fig,ax=plt.subplots(figsize=(8.2,3.5))
     keys=["furnace","xrd","staff","eis","gpu","dft"]
     arr=[[float(r["util_"+s])*100 for s in keys] for r in rows]
@@ -76,7 +96,7 @@ def make(dst):
             ax.text(x,y,f"{v:.0f}%",ha="center",va="center",color="white" if v>65 else "#16343a")
     title(fig,"资源忙时占各自可用槽时的比例")
     fig.colorbar(im,ax=ax,pad=.02,label="利用率（%）",shrink=.75)
-    output(fig,dst,"utilization")
+    output(fig,dst,"utilization",paper_art)
     scenarios=[("V0","基准"),("late_xrd","初相发布延迟"),("gpu_slack","共享 GPU 宽松"),("fixed_sufficient","固定势已足够"),
                ("slow_acceptance","训练与验收慢"),("fail_all_fits","微调验收全部失败"),("no_gain","验收后物理增益为零"),
                ("favorable_gain","有利微调"),("dft_0.2x","DFT 0.2 倍"),("dft_10x","DFT 10 倍"),
@@ -93,7 +113,7 @@ def make(dst):
     axes[0].set_yticks(range(len(scenarios)),[v for _,v in scenarios])
     axes[0].invert_yaxis()
     title(fig,"适配相对固定势的配对效应及 95% 区间")
-    output(fig,dst,"sensitivity")
+    output(fig,dst,"sensitivity",paper_art)
     ev=[r for r in events if r["policy"]=="B4"]
     started={r["task_id"]:r for r in ev if r["event"]=="started"}
     finished={r["task_id"]:r for r in ev if r["event"]=="completed_unreviewed"}
@@ -120,7 +140,7 @@ def make(dst):
     labs=["合成","初相","制片","EIS","短 MD","长 MD","DFT 检查","DFT 标签","微调"]
     ax.legend(handles=[Patch(color=color[k],label=v) for k,v in zip(ops,labs)],loc="upper center",bbox_to_anchor=(.5,-.19),ncol=9,fontsize=7,frameon=False)
     title(fig,f"B4 单次运行的资源甘特图 · 随机种子 {ev[0]['seed']}")
-    output(fig,dst,"resource_gantt")
+    output(fig,dst,"resource_gantt",paper_art)
     # One actual independent-confirmed sample provides an unambiguous two-batch trace.
     candidate=next((r["candidate_id"] for r in ev if r["event"]=="independent_decision" and r["detail"]=="True"),ev[0]["candidate_id"])
     mine=[r for r in ev if r["candidate_id"]==candidate and r["operation"] in ("synth","xrd","eis","short","long","press")]
@@ -144,9 +164,11 @@ def make(dst):
     ax.invert_yaxis();ax.set_xlabel("队列启动后的时间（h）；同一时点的完成与发布标记重合")
     ax.legend(ncol=5,loc="upper center",bbox_to_anchor=(.5,-.17),frameon=False,fontsize=8)
     title(fig,f"从筛查到新粉体确认 · C{int(candidate):02d} 的事件泳道")
-    output(fig,dst,"event_swimlane")
+    output(fig,dst,"event_swimlane",paper_art)
 
 if __name__=="__main__":
     p=argparse.ArgumentParser()
     p.add_argument("--out",type=Path,default=OUT)
-    make(p.parse_args().out)
+    p.add_argument("--paper-art",type=Path,help="Render only the written report's three PNGs with SimHei Regular headings here; read CSVs from --out.")
+    args=p.parse_args()
+    make(args.out,args.paper_art)
