@@ -36,6 +36,30 @@ paper_text=normalized(''.join(p.extract_text() for p in paper.pages))
 for needle in ['28,100','131,670','0.247','5,000','独立确认','OBELiX','参考文献']:
     assert normalized(needle) in paper_text,needle
 for marker in ['@BASE_TABLE','@DELTA_TABLE','@ABLATION_TABLE']:assert marker not in paper_text
+
+def citation_numbers(source):
+    cited=set()
+    for cluster in re.findall(r'\[([1-9]\d*(?:[,–-][1-9]\d*)*)\]',source):
+        for block in cluster.split(','):
+            ends=[int(v) for v in re.split('[–-]',block)]
+            cited.update(range(ends[0],ends[-1]+1))
+    return cited
+
+chapter=(PAPER/'manuscript.md').read_text('utf-8')
+rest,bibliography=(PAPER/'manuscript_des.md').read_text('utf-8').split('## 参考文献与可复核资料',1)
+bibliography=bibliography.split('## 附录',1)[0]
+entries=[int(v) for v in re.findall(r'^\[(\d+)\] ',bibliography,re.M)]
+assert entries==list(range(1,len(entries)+1))
+assert citation_numbers(chapter+rest)==set(entries),'Reference list and in-text citations disagree'
+sources=list(csv.DictReader((ROOT/'refs/literature_review.csv').open(encoding='utf-8-sig')))
+review=chapter.split('### 2.1 ',1)[1].split('### 2.2 ',1)[0]
+review_ids={int(r['ref_no']) for r in sources}
+assert len(sources)==len(review_ids)>50 and review_ids<=citation_numbers(review)
+with zipfile.ZipFile(PAPER/'开题报告_P8.docx') as z:
+    xml=ET.fromstring(z.read('word/document.xml'))
+    bookmarks={b.get(W+'name') for b in xml.iter(W+'bookmarkStart')}
+    assert {'Biblio'+str(i) for i in entries}<=bookmarks
+    assert all(l.get(W+'anchor') in bookmarks for l in xml.iter(W+'hyperlink') if (l.get(W+'anchor') or '').startswith('Biblio'))
 powders=list(csv.DictReader((ROOT/'pilot/powders.csv').open(encoding='utf-8-sig')))
 pellets=list(csv.DictReader((ROOT/'pilot/pellets.csv').open(encoding='utf-8-sig')))
 assert len({r['powder_id'] for r in powders})==10 and len({r['pellet_id'] for r in pellets})==16

@@ -11,6 +11,7 @@ sections=[
  ('事件仿真、数值和可复算证明',['docs/DES_SPEC.md','docs/DES_RESULTS.md','simulation/README.md']),
  ('版本质量和后续验收',['paper/P8_CLAIM_AUDIT.md','tests/TEST_PLAN.md','docs/REPRODUCIBILITY.md'])]
 parts=['# P8 技术附录','本附录对应《氯富集硫银锗矿的输运分歧与序贯验证》。引用核查、公开文件复算、仿真结果与下一阶段计划各自标示。基准 V0 使用 5,000 个配对随机种子；可变参数、数据谱系和原始结果保存在同一仓库。','[书面报告](paper/开题报告_P8.pdf) · [汇报版](paper/汇报版开题报告_P8.pdf) · [P7 双稿逐页修改对照](paper/P7_TO_P8_CHANGELOG.md) · [公开数据清单](configs/dataset_manifest.csv) · [仿真假设](configs/assumptions.yaml) · [参数证据来源](simulation/evidence_sources.csv)']
+parts.append('文字稿第 2.1 节综述 67 篇学术文献，原子标签库中缺少 x=0.25/0.50 与文献已有相应湿端测量是两项独立判断。可按正文引文编号查逐篇证据，再按文献、工艺、温度、测量对象查外部对照。最终确认采用锁定预测后的新粉体。[综述证据表](refs/literature_review.csv) · [历史输运记录](refs/literature_transport_benchmarks.csv)')
 for idx,(name,files) in enumerate(sections,1):
     parts.append(f'## {idx}　{name}')
     for rel in files:

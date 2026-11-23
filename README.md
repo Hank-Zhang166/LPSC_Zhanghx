@@ -6,6 +6,8 @@
 
 [书面开题报告](paper/开题报告_P8.pdf) · [汇报 PDF](paper/汇报版开题报告_P8.pdf) · [可编辑 PowerPoint](paper/汇报版开题报告_P8.pptx) · [逐页 Word 汇报词](paper/P8_逐页汇报词.docx) · [可编辑书面报告](paper/开题报告_P8.docx) · [技术附录](P8_技术附录.md) · [P7 逐页修改对照](paper/P7_TO_P8_CHANGELOG.md)
 
+文字稿第 2 章综述 67 篇学术文献。已有实验研究覆盖首轮的两种氯富集中间组成，研究先按测量对象、温度和工艺复核文献量级，最终排序由预测冻结后的新粉体检验。逐篇的证据边界及五项原始研究的电导记录可直接查表。[综述文献表](refs/literature_review.csv) · [历史输运对照表](refs/literature_transport_benchmarks.csv)
+
 ~~~text
 名义组成 + 已发布的相/成分证据 → 枚举结构族 → 同口径独立 DFT
                                             ↓

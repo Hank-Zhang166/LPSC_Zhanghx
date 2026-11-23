@@ -13,6 +13,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_TAB_ALIGNMENT, WD_TAB_LEADER
 from docx.enum.table import WD_TABLE_ALIGNMENT, WD_CELL_VERTICAL_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
+from docx.opc.constants import RELATIONSHIP_TYPE as RT
 from docx.shared import Cm, Pt, RGBColor
 from PIL import Image
 
@@ -27,6 +28,7 @@ SHORT={
     "图 5.2":"五种政策的首次确认时间与召回率",
     "图 5.3":"定向适配相对固定势的敏感性",
     "表 2.1":"公开数据的组成覆盖与首轮用途",
+    "表 2.2":"同名义组成的历史输运对照及其比较条件",
     "表 4.1":"实验证据与可选择的后续动作",
     "表 5.1":"五种政策的时间、费用和准确性",
     "表 5.2":"B4 相对三种基线的配对差",
@@ -88,7 +90,7 @@ def secsetup(s,cover=False,num=None):
 def clean(s):
     return re.sub(r"\*\*|`","",s.strip())
 
-def text(p,s):
+def plain_text(p,s):
     """Preserve uncommon scientific glyphs through explicit math-font runs."""
     for part in re.split(r"([₀-₉₋₊ₓᵢ⁰¹²³⁴⁵⁶⁷⁸⁹⁻ᵀ∂ΣΞ√≥≤∝Åθ]+)",clean(s)):
         if not part:continue
@@ -96,6 +98,49 @@ def text(p,s):
         if re.match(r"^[₀-₉₋₊ₓᵢ⁰¹²³⁴⁵⁶⁷⁸⁹⁻ᵀ∂ΣΞ√≥≤∝Åθ]",part):
             r.font.name="Cambria Math"
             r._element.get_or_add_rPr().rFonts.set(qn("w:eastAsia"),"Cambria Math")
+
+def linked_run(p,label,anchor=None,url=None,raised=False):
+    link=xml("hyperlink")
+    if anchor:
+        link.set(qn("w:anchor"),anchor)
+    if url:
+        link.set(qn("r:id"),p.part.relate_to(url,RT.HYPERLINK,is_external=True))
+    run=p.add_run(label)
+    run.font.superscript=raised
+    link.append(run._r)
+    p._p.append(link)
+
+def text(p,s):
+    # Link numbered inline citations, leaving numerical simulation intervals intact.
+    pattern=r"(\[[1-9]\d*(?:[,–-][1-9]\d*)*\])"
+    for part in re.split(pattern,clean(s)):
+        if not part:
+            continue
+        if re.fullmatch(pattern,part):
+            for token in re.split(r"(\d+)",part):
+                if token.isdigit():
+                    linked_run(p,token,anchor="Biblio"+token,raised=True)
+                elif token:
+                    p.add_run(token).font.superscript=True
+        else:
+            # This helper preserves spaces at citation boundaries.
+            if part[:1].isspace(): p.add_run(" ")
+            plain_text(p,part)
+            if part[-1:].isspace(): p.add_run(" ")
+
+def bibliography_entry(p,s):
+    number=re.match(r"\[(\d+)\]",s)[1]
+    # Publication records carry one stable resolver or official resource link.
+    body,sep,url=s.rpartition(" https://")
+    if sep:
+        plain_text(p,body)
+        p.add_run(" ")
+        url="https://"+url
+        label=("DOI: "+url.removeprefix("https://doi.org/")) if url.startswith("https://doi.org/") else url
+        linked_run(p,label,url=url)
+    else:
+        plain_text(p,s)
+    bmark(p,"Biblio"+number,1000+int(number))
 
 def table(doc,data,fractions=None,compact=False):
     k=len(data[0])
@@ -164,6 +209,7 @@ def format_document(d):
       ("Title","黑体","Arial",26,1,0,0,12,0,True,False),
       ("Heading 1","黑体","Arial",16,1,0,24,18,0,True,True),
       ("Heading 2","黑体","Arial",14,0,0,24,6,20,True,True),
+      ("Heading 3","黑体","Arial",12,0,0,13,4,20,True,True),
       ("P8 front","黑体","Arial",16,1,0,24,18,0,True,True),
       ("P8 cap","宋体","Times New Roman",10.5,1,0,6,10,0,False,False),
       ("P8 table","宋体","Times New Roman",10.5,0,0,0,0,14,False,False),
@@ -242,7 +288,9 @@ def build(out):
     i=1; mode="";mark=200
     while i<len(lines):
         s=lines[i]
-        if s.startswith("### "):
+        if s.startswith("#### "):
+            p=doc.add_paragraph(style="Heading 3");text(p,s[5:])
+        elif s.startswith("### "):
             p=doc.add_paragraph(style="Heading 2");text(p,s[4:])
         elif s.startswith("## "):
             label=s[3:];mode=label
@@ -287,7 +335,7 @@ def build(out):
         elif s.startswith("[") and mode.startswith("参考文献"):
             p=doc.add_paragraph(style="P8 reference")
             p.paragraph_format.left_indent=Pt(20);p.paragraph_format.first_line_indent=Pt(-20)
-            text(p,s)
+            bibliography_entry(p,s)
         else:
             p=doc.add_paragraph(style="P8 small" if s.startswith("关键词") else "Normal");text(p,s)
         i+=1

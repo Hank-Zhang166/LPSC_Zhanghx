@@ -26,4 +26,14 @@
 | E20 | NRC-Mila，OBELiX，固定提交 4eaac889809dd489e3bae468c45d5c0e02b9147a。[仓库字段定义](https://github.com/NRC-Mila/OBELiX/tree/4eaac889809dd489e3bae468c45d5c0e02b9147a)；[原始 CSV](https://raw.githubusercontent.com/NRC-Mila/OBELiX/4eaac889809dd489e3bae468c45d5c0e02b9147a/data/downloads/all.csv) | 实读全表，核查带 CIF 状态、严格四元素条目、DOI 和 close match，CC BY 4.0。逐文核查几何/压片条件后才能交叉比较 |
 | E21 | Atomic Simulation Environment，扩展 XYZ 读写与 ASE 单位。[extxyz](https://docs.ase-lib.org/ase/io/formatoptions.html#extxyz)；[单位](https://docs.ase-lib.org/ase/units.html) | 用于解释键名及单位惯例。Oxford PBEsol 帧头未显式写出力单位或应力符号转换口径 |
 
-参数类别与数据入口另见 [参数证据表](evidence_sources.csv) 与 [外部数据清单](../configs/dataset_manifest.csv)。列出的论文、数据和脚本只能支持表内层级的主张。原始外部压缩包、模型和第三方势库未提交。
+## 直接用于氯富集系列历史对照的原始论文
+
+| 工作 | 直接可核查结果与读取位置 |
+|---|---|
+| E22 Adeli 等，Angew. Chem. Int. Ed. 58，8681–8686，2019。[DOI](https://doi.org/10.1002/anie.201814222) | 摘要给出 x=0.50 在 298 K 的冷压与烧结数值；同文加工对照，独立粉体批数未摘录。 |
+| E23 Yu 等，Nano Energy 69，104396，2020。[作者全文](https://www.eng.uwo.ca/nanoenergy/publications/2019/pdf/yu-chuang-2020-Nano-Energy.pdf) · [DOI](https://doi.org/10.1016/j.nanoen.2019.104396) | 图 3c 附近正文逐组成给出两个退火温度的室温电导；名义氯计量已换成本课题的 x，电导由 S/cm 折算到 mS/cm。 |
+| E24 Feng 等，Energy Storage Materials 30，67–73，2020。[作者全文](https://www.chem.fsu.edu/~hu/Pub_PDF/XF_2020_Energy_Storage_Materials.pdf) · [DOI](https://doi.org/10.1016/j.ensm.2020.04.042) | 摘要与正文记载 x=0.70 在 25 ℃ 达 17 mS/cm。该读数对应作者的固态样品和测量流程；不能据此推定新批次能达到该阈值。 |
+| E25 Wang 等，Cell Reports Physical Science 5，102314，2024。[DOI](https://doi.org/10.1016/j.xcrp.2024.102314) · [补充材料](https://ars.els-cdn.com/content/image/1-s2.0-S2666386424006283-mmc1.pdf) | 氯富系列含 x=0、0.25、0.50、0.70；补充图 S7 给出室温阻抗谱。x=0.70 的作者室温数值为 11.4±0.7 mS/cm；未从图中估读其余两种中间组成为数值训练标签。 |
+| E17 Korjus 等，Energy Storage Materials 82，104589，2025。[作者开放全文](https://hal.science/hal-05253118/document) | 正文的压力扫描末端（510 MPa）及结论给出 1.62 mS/cm；摘要另写 1.66。本文按正文与结论摘录。5.3 mS/cm 是由 QENS 扩散系数换算的体相估计；这两个终点不属于两份独立粉体确认。 |
+
+[输运基准表](literature_transport_benchmarks.csv) 的 `review_id` 为工作编号 M04、M05、M06、M07、M16，DOI 是跨表对应键。参数类别与外部数据入口另见 [参数证据表](evidence_sources.csv) 与 [外部数据清单](../configs/dataset_manifest.csv)。列出的论文、数据和脚本只能支持表内层级的主张。原始外部压缩包、模型和第三方势库未提交。
