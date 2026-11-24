@@ -1,0 +1,26 @@
+{
+  "source": "https://researchdata.bath.ac.uk/814/2/argyrodite_MD.tar.gz",
+  "inclusive_bytes": [
+    0,
+    62914559
+  ],
+  "partial_archive_sha256": "dafb5c58c9c9eb4f8d62c8f1a78c28ff450800b5651772f63b8acf52dd8d19ad",
+  "complete_member": "argyrodite_MD/Li6PS5Cl/0p/run3/quench/config_2050/vasprun.xml.gz",
+  "member_size": 10848231,
+  "compressed_member_sha256": "1cb1d2a64fdd80c513c5531f3232be2b2961a5fd882af4ce48963d0a853c5841",
+  "dft_GGA_tag": "PS",
+  "counts": {
+    "ionic_steps": 1,
+    "forces_steps": 1,
+    "forces_first_shape": [
+      416,
+      3
+    ],
+    "stress_steps": 1,
+    "stress_first_shape": [
+      3,
+      3
+    ],
+    "energy_steps": 1
+  }
+}

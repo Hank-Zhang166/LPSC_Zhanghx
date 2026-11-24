@@ -1,0 +1,28 @@
+id,version_or_doi,url,evidence_locator,sha256,hash_scope,access_date
+mo_pdf,"Mo main, JAC 971 (2024) 172727",https://doi.org/10.1016/j.jallcom.2023.172727,"local publisher PDF, main figures 1/6/8/9; pp.2,6–8",cde4ab03c52d0cf1ef2327ef9b2e958560a0787cb71a3e52707e794c8f186c3a,主PDF,2026-11-24
+mo_si,PII S0925838823040306 / mmc1,https://ars.els-cdn.com/content/image/1-s2.0-S0925838823040306-mmc1.docx,"local SI Table S1 p4, Figs S2,S4–S6",3c8621d928a9d4bb31badee1c69f6777fc48fc827115b03a9414b03113e73194,补充DOCX,2026-11-24
+payne,2025 / 10.1039/D5EE01612F,https://doi.org/10.1039/D5EE01612F,CP/SPS occupancy and CCDC 2430153/2430154,4139c275a78ea7cff3f01deb31133245034be67349e4c6875d4936a13576bb64,原文PDF,2026-11-24
+minafra,"SI 1, Figshare 12664894",https://doi.org/10.1021/acs.inorgchem.0c01504.s001,"fig S1, table S1/S2",a253573bcb587ef6f3bc6f183785636e3ffb2639c483021137274939b4254313,SI PDF,2026-11-24
+obCIF,4eaac889809dd489e3bae468c45d5c0e02b9147a,https://raw.githubusercontent.com/NRC-Mila/OBELiX/4eaac889809dd489e3bae468c45d5c0e02b9147a/data/downloads/all_cifs.zip,122/97p checked in zip,90f54f781fe6c4ba014636046556ec66c3bfa909b617e7258ff50ac3dcfa027c,完整归档,2026-11-24
+bathref,repository DOI 10.15125/BATH-00814,https://researchdata.bath.ac.uk/814/1/README.md,VASP per-run protocol and linked MD restarts,c83d664ebe84f48853326d56a4b3c889e8b7da4a65eda5a0003d13c3c8cfbf16,README,2026-11-24
+dp_release,v3.2.0 commit 8cfd46e37448feca361ff3427a6c2b514ce5a2bb,https://api.github.com/repos/deepmodeling/deepmd-kit/releases/latest,release API returned v3.2.0,de93433fd1233bbb6096ad044d4ff820f238b941ea6064beee6f13adadc949e1,API响应,2026-11-24
+dp_license,v3.2.0,https://raw.githubusercontent.com/deepmodeling/deepmd-kit/v3.2.0/LICENSE,LGPL v3 text,e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118,LICENSE,2026-11-24
+dp_weights,173bfd5a26f90a756ee891777270ef117078d9be,https://huggingface.co/deepmodelingcommunity/DPA4-OMat24/tree/173bfd5a26f90a756ee891777270ef117078d9be,card license and individual LFS sha,f912444721e71af5fe130c58a05faef118d18d9573bfaf43c8717f26e2fb3069,HF模型API响应,2026-11-24
+BME,314d3b5bb8cd400c1a9eee984acdb903a03c3da4,https://github.com/KULL-Centre/BME/tree/314d3b5bb8cd400c1a9eee984acdb903a03c3da4,code + GPL-3.0,ed39d4c9a955fd2ce58f6d2c57634a60cb2bca7172fe77c89846cec773a5dbd1,BME.py,2026-11-24
+Y1,accessed 2026-11-24,https://www.ybsttc.com/news_show.aspx?channel=xinwen&id=2486,厅调研：区分两个中心,,在线页面，未存原始字节,2026-11-24
+Y2,accessed 2026-11-24,https://sichuan.scol.com.cn/ggxw/202511/83154416.html,采访：共建单位与表征场景,,在线页面，未存原始字节,2026-11-24
+Y3,accessed 2026-11-24,https://www.bsia.org.cn/site/content/34720.html,2026-09-07，深势署名供稿,,在线页面，未存原始字节,2026-11-24
+Y4,accessed 2026-11-24,https://sc.people.com.cn/n2/2026/0904/c345167-41687318.html,2026-09-04，现场具名报告,,在线页面，未存原始字节,2026-11-24
+Y5,accessed 2026-11-24,https://cbgc.scol.com.cn/news/7684007,2026-06-18，合作签约,9e7093ed585fb7839657a5f176c307dc245efe6f21a9ae621eedcdb5a1074ac2,HTML,2026-11-24
+Y6,accessed 2026-11-24,https://www.dp.tech/about,公司官网集团地点,,在线页面，未存原始字节,2026-11-24
+helm,10.1021/acsaem.6c02127,https://doi.org/10.1021/acsaem.6c02127,原文/摘要层级见 STRUCTURE_LITERATURE.md，散列仅指题录响应,4ecee095000f43d32b0b2564df056126f34f3b822e324cea47d5fff268ffde27,公开题录API响应,2026-11-24
+lav,10.1039/D4TA04628E,https://doi.org/10.1039/D4TA04628E,原文/摘要层级见 STRUCTURE_LITERATURE.md，散列仅指题录响应,ea6983ff9655330d1b7219e6e6c4b233d9676b684644cd8f71b4250a1e909d30,公开题录API响应,2026-11-24
+wang,10.1016/j.xcrp.2024.102314,https://doi.org/10.1016/j.xcrp.2024.102314,原文/摘要层级见 STRUCTURE_LITERATURE.md，散列仅指题录响应,0247babb43b33a09b80a4c9f350d1a5a923cffde4a8e08c717489b71889ecf6d,公开题录API响应,2026-11-24
+gautam,10.1021/acs.chemmater.3c01525,https://doi.org/10.1021/acs.chemmater.3c01525,原文/摘要层级见 STRUCTURE_LITERATURE.md，散列仅指题录响应,800e01de2072ccf0d7307e95091cc1f6ab5b9a7014d5f7eaa29320b2339a0216,公开题录API响应,2026-11-24
+morgan,10.1021/acs.chemmater.0c03738,https://doi.org/10.1021/acs.chemmater.0c03738,原文/摘要层级见 STRUCTURE_LITERATURE.md，散列仅指题录响应,5403c17307b9c734b4ba99075776c7fbf950983e485de64c2a6fdabe0bf9fef7,公开题录API响应,2026-11-24
+jeon,10.1039/D3TA06069A,https://doi.org/10.1039/D3TA06069A,原文/摘要层级见 STRUCTURE_LITERATURE.md，散列仅指题录响应,75dbf48cd2cb2018cc7fb9c3d9c704143c770edf17dba649e04166c233e06e14,公开题录API响应,2026-11-24
+mtp,10.1039/D5TA02205C,https://doi.org/10.1039/D5TA02205C,原文/摘要层级见 STRUCTURE_LITERATURE.md，散列仅指题录响应,11b8b1a7b04747e5cee6d5a8e72262161e66089b0717c2dc96663e7c0acea0c7,公开题录API响应,2026-11-24
+HRMC,10.1107/S1600576724009282,https://doi.org/10.1107/S1600576724009282,方法及氧化铈案例,,在线资料,2026-11-24
+BME_paper,PMID 32006288,https://pubmed.ncbi.nlm.nih.gov/32006288/,作者/题录/方法；代码另列,,在线资料,2026-11-24
+DPA-SSE-weight,AIS #266,https://backend.aissquare.com/dpa/detail/models?type=models&id=266&name=SSE-VASP-dpa2,模型许可 LGPL-3.0；DPA-2，当前未获取 .pt 原件,1f4d4551912f19b35670cef333454fda448521b43d2838cb995c0465c063481e,AIS 模型卡 JSON 响应，非权重文件,2026-11-24
+DPA4-LoRA,v3.2.0,https://github.com/deepmodeling/deepmd-kit/blob/v3.2.0/deepmd/pt/model/descriptor/sezm_nn/lora.py,核对标签版实现，未训练,03591f701e266b9db0e395c53765391183dda38e9c8786d1d0a304a14c5a1644,版本化 Python 源码,2026-11-24

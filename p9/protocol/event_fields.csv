@@ -1,0 +1,18 @@
+﻿field,meaning,unit_or_type,required_when,status
+project_id,stable project parent,ID,all,planned
+candidate_id,composition and SOP arm,ID,all,planned
+task_id,work and dependencies,ID,all,planned
+event_id,append-only event identity,ID,all,planned
+event_type,submit;queue;start;done;release;defer;cancel;resume;freeze;fail;retry,enum,all,planned
+event_utc,timezone-qualified timestamp,ISO 8601,all,planned
+sample_id and parent_powder_id,specimen and independent ancestry,ID,sample task,planned
+frame_id and trajectory_id,input frame and parent path,ID,compute task,planned
+model_id and valid_from,prediction mechanism and release time,ID/time,compute task,planned
+reference_id,code;functional;pseudopotential;convergence;units,ID,reference task,planned
+resource_id and slot,"stable equipment, reviewer or compute",ID,committed stage,planned
+calendar_revision,"shift, planned maintenance and outside load",ID,queue decision,planned
+committed_spend and actual_spend,reservation and accrued spend,CNY,submission/execution,planned
+sample_amount,available and consumed aliquot,mg,wet task,planned
+qc_status and failure_code,quality decision and reason,enum,release/retry,planned
+observable_uri and uncertainty,"result reference, units, uncertainty and source",structured,release,planned
+proposed_action and rationale,"legal alternative, expected loss and disposition",structured,decision,planned

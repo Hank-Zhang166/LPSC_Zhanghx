@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="362.37952pt" height="356.87952pt" viewBox="0 0 362.37952 356.87952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-24T22:32:48.616279</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 356.87952 
+L 362.37952 356.87952 
+L 362.37952 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 47.14 315.23952 
+L 353.73952 315.23952 
+L 353.73952 8.64 
+L 47.14 8.64 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g clip-path="url(#pc7391248fd)">
+    <image xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAykAAAMpCAYAAAAAanxqAAAQU0lEQVR4nO3ZsW3EMBBFQdH9V8qIUAN06sTZAXzSzVTwsdnDXhcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC81jg9AAAAPmGue7vkO/ycHgAAAPCXSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQMk4PAAA4Za57uz70+KQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAyjg9AACeZq57n94A8GY+KQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSxukBAN9grnuf3gAAT+GTAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACnj9ADgf3Pd230AgG/jkwIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgZZwewGfNdW83BQDgyXxSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAAIEWkAAAAKSIFAABIESkAAECKSAEAAFJECgAAkCJSAACAFJECAACkiBQAACBFpAAAACkiBQAASBEpAABAikgBAABSRAoAAJAiUgAAgBSRAgAApIgUAAAgRaQAAAApIgUAAEgRKQAAQIpIAQAAUkQKAACQIlIAAIAUkQIAAKSIFAAA4Cr5BRLYHCna2gMaAAAAAElFTkSuQmCC" id="imageb84d64a105" transform="scale(1 -1) translate(0 -306.568421)" x="46.989474" y="-8.626888" width="306.568421" height="306.568421"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m0e986f418c" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m0e986f418c" x="69.039966" y="315.23952" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: middle" x="69.039966" y="331.692645" transform="rotate(-0 69.039966 331.692645)">0.0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m0e986f418c" x="112.839897" y="315.23952" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: middle" x="112.839897" y="331.692645" transform="rotate(-0 112.839897 331.692645)">0.1</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m0e986f418c" x="156.639829" y="315.23952" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: middle" x="156.639829" y="331.692645" transform="rotate(-0 156.639829 331.692645)">0.2</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m0e986f418c" x="200.43976" y="315.23952" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: middle" x="200.43976" y="331.692645" transform="rotate(-0 200.43976 331.692645)">0.3</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m0e986f418c" x="244.239691" y="315.23952" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: middle" x="244.239691" y="331.692645" transform="rotate(-0 244.239691 331.692645)">0.4</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m0e986f418c" x="288.039623" y="315.23952" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: middle" x="288.039623" y="331.692645" transform="rotate(-0 288.039623 331.692645)">0.5</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m0e986f418c" x="331.839554" y="315.23952" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: middle" x="331.839554" y="331.692645" transform="rotate(-0 331.839554 331.692645)">0.6</text>
+     </g>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: middle; fill: #243940" x="200.43976" y="346.692645" transform="rotate(-0 200.43976 346.692645)">组成 B 的 x</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_8">
+      <defs>
+       <path id="m3ac9ca168b" d="M 0 0 
+L -3.5 0 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m3ac9ca168b" x="47.14" y="30.539966" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: end" x="40.14" y="35.266528" transform="rotate(-0 40.14 35.266528)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m3ac9ca168b" x="47.14" y="74.339897" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: end" x="40.14" y="79.06646" transform="rotate(-0 40.14 79.06646)">0.1</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m3ac9ca168b" x="47.14" y="118.139829" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: end" x="40.14" y="122.866391" transform="rotate(-0 40.14 122.866391)">0.2</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m3ac9ca168b" x="47.14" y="161.93976" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: end" x="40.14" y="166.666323" transform="rotate(-0 40.14 166.666323)">0.3</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m3ac9ca168b" x="47.14" y="205.739691" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: end" x="40.14" y="210.466254" transform="rotate(-0 40.14 210.466254)">0.4</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m3ac9ca168b" x="47.14" y="249.539623" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: end" x="40.14" y="254.266185" transform="rotate(-0 40.14 254.266185)">0.5</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m3ac9ca168b" x="47.14" y="293.339554" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: end" x="40.14" y="298.066117" transform="rotate(-0 40.14 298.066117)">0.6</text>
+     </g>
+    </g>
+    <g id="text_16">
+     <text style="font-size: 11px; font-family: 'SimHei'; text-anchor: middle; fill: #243940" x="18.093125" y="161.93976" transform="rotate(-90 18.093125 161.93976)">组成 A 的 x</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 47.14 315.23952 
+L 47.14 8.64 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 47.14 315.23952 
+L 353.73952 315.23952 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(102.339897 28.325122)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(102.339897 40.301684)">0.59</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(146.139829 28.325122)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(146.139829 40.301684)">0.71</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(189.93976 28.325122)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(189.93976 40.301684)">0.77</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(233.739691 28.325122)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(233.739691 40.301684)">0.61</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(277.539623 28.325122)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(277.539623 40.301684)">0.77</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(321.339554 28.325122)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(321.339554 40.301684)">0.57</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(146.139829 72.125053)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(146.139829 84.101616)">0.54</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(189.93976 72.125053)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(189.93976 84.101616)">0.66</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(233.739691 72.125053)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(233.739691 84.101616)">0.45</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(277.539623 72.125053)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(277.539623 84.101616)">0.69</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(321.339554 72.125053)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(321.339554 84.101616)">0.41</text>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(189.93976 115.924985)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(189.93976 127.901547)">0.49</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(233.739691 115.924985)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(233.739691 127.901547)">0.30</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(277.539623 115.924985)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(277.539623 127.901547)">0.55</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(321.339554 115.924985)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(321.339554 127.901547)">0.49</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(233.739691 159.724916)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(233.739691 171.701479)">0.19</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(277.539623 159.724916)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(277.539623 171.701479)">0.42</text>
+   </g>
+   <g id="text_34">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(321.339554 159.724916)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(321.339554 171.701479)">0.63</text>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(277.539623 203.524848)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(277.539623 215.50141)">0.13</text>
+   </g>
+   <g id="text_36">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(321.339554 203.524848)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(321.339554 215.50141)">0.38</text>
+   </g>
+   <g id="text_37">
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(321.339554 247.324779)">未决</text>
+    <text style="font-size: 10.5px; font-family: 'SimHei'; fill: #243940" transform="translate(321.339554 259.301342)">0.73</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pc7391248fd">
+   <rect x="47.14" y="8.64" width="306.59952" height="306.59952"/>
+  </clipPath>
+ </defs>
+</svg>

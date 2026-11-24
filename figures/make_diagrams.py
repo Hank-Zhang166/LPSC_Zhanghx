@@ -60,7 +60,7 @@ box(931,258,258,92,'新势可用','重算赶得上冻结才行动','teal')],
 [edge(0,1),edge(1,2),edge(2,3),edge(4,5),edge(5,6),edge(6,7)]),
 }
 
-def generate(key,title,nodes,edges):
+def generate(key,title,nodes,edges, *, title_size=23, detail_size=16, two_line=False):
     model=E.Element('mxGraphModel',{'adaptiveColors':'auto','pageWidth':str(W),'pageHeight':str(H)})
     root=E.SubElement(model,'root')
     E.SubElement(root,'mxCell',id='0')
@@ -107,12 +107,29 @@ def generate(key,title,nodes,edges):
     for i,(x,y,w,h,label,sub,kind) in enumerate(nodes):
         bg,fg=P[kind]
         style=f'rounded=1;arcSize=13;html=1;whiteSpace=wrap;fillColor={bg};fontColor={fg};strokeColor={bg};fontFamily=Microsoft YaHei;fontSize=20;'
-        value=f'<b>{label}</b><br><font style="font-size:15px">{sub}</font>'
+        details = [sub]
+        if two_line:
+            face = ImageFont.truetype(FONT, 2*detail_size)
+            details = [""]
+            for char in sub:
+                if details[-1] and face.getlength(details[-1]+char) > 2*(w-18):
+                    details.append("")
+                details[-1] += char
+        detail_html = "<br>".join(escape(detail) for detail in details)
+        value=(f'<b style="font-size:{title_size}px">{escape(label)}</b><br>'
+               f'<font style="font-size:{detail_size}px">{detail_html}</font>')
+        if not two_line:
+            value=f'<b>{label}</b><br><font style="font-size:15px">{sub}</font>'
         cell=E.SubElement(root,'mxCell',id='n'+str(i),parent='1',vertex='1',value=value,style=style)
         E.SubElement(cell,'mxGeometry',{'x':str(x),'y':str(y),'width':str(w),'height':str(h),'as':'geometry'})
         d.rounded_rectangle((2*x,2*y,2*(x+w),2*(y+h)),radius=14,fill=bg)
         svg.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="7" fill="{bg}"/>')
-        for text,cy,size,bold in [(label,y+h/2-14,23,True),(sub,y+h/2+18,16,False)]:
+        top = y+h/2-(24 if len(details)>1 else 14)
+        baseline = y+h/2+(6 if len(details)>1 else 18)
+        labels = [(label,top,title_size,True)]
+        labels.extend((detail,baseline+i*(detail_size+2),detail_size,False)
+                      for i,detail in enumerate(details))
+        for text,cy,size,bold in labels:
             font=ImageFont.truetype(BOLD if bold else FONT,2*size)
             d.text((2*(x+w/2),2*cy),text,fill=fg,font=font,anchor='mm')
             svg.append(f'<text x="{x+w/2}" y="{cy+size*.32}" font-family="Microsoft YaHei,sans-serif" font-size="{size}" font-weight="{700 if bold else 400}" text-anchor="middle" fill="{fg}">{escape(text)}</text>')

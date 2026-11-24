@@ -1,0 +1,7 @@
+option,transform_row_major,determinant,nominal_P,basis_condition_ratio,status
+1,"[[2, 0, 0], [0, 2, 0], [0, 0, 5]]",20,20,3.6974801745463752,integer_shape_candidates_only
+2,"[[5, 0, 0], [0, 2, 0], [0, 0, 2]]",20,20,3.697480174546376,integer_shape_candidates_only
+3,"[[2, 0, 0], [0, 5, 0], [0, 0, 2]]",20,20,3.697480174546377,integer_shape_candidates_only
+4,"[[5, 0, 0], [0, 2, 0], [1, 0, 2]]",20,20,3.9702889026746986,integer_shape_candidates_only
+5,"[[5, 0, 0], [1, 2, 0], [0, 0, 2]]",20,20,3.970288902674701,integer_shape_candidates_only
+6,"[[2, 0, 0], [0, 5, 0], [0, 1, 2]]",20,20,3.9702889026747017,integer_shape_candidates_only

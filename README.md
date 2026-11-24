@@ -1,58 +1,42 @@
 # LPSC_Zhanghx
-## 氯富集硫银锗矿的输运分歧与序贯验证
-当 Li₆₋ₓPS₅₋ₓCl₁₊ₓ 在晶内模拟中排在前面，压片电导却没有体现优势，下一笔预算应当投向改结构、补采样、核查样品，还是用独立 DFT 检验原子势？本项目将不同尺度的证据和实际可用时点同时纳入开题研究。
 
-**本版能复核两件事。** 第一，公开原子文件与实验数据中究竟包含哪些组成、参考力和重复结构。第二，在给定假设下，五种研发策略获得首次独立阳性确认的时间、召回与费用如何变化。新 DFT、DPA4 适配、输运 MD 和独立湿端确认均为后续实验。
+## P9 氯富集硫银锗矿的构型概率排序与研发决策
 
-[书面开题报告](paper/开题报告_P8.pdf) · [汇报 PDF](paper/汇报版开题报告_P8.pdf) · [可编辑 PowerPoint](paper/汇报版开题报告_P8.pptx) · [逐页 Word 汇报词](paper/P8_逐页汇报词.docx) · [可编辑书面报告](paper/开题报告_P8.docx) · [技术附录](P8_技术附录.md) · [P7 逐页修改对照](paper/P7_TO_P8_CHANGELOG.md)
+[文字版 PDF](p9/paper/开题报告_P9.pdf) · [可编辑 Word](p9/paper/开题报告_P9.docx) · [汇报 PDF](p9/paper/汇报版开题报告_P9.pdf) · [PowerPoint](p9/paper/汇报版开题报告_P9.pptx) · [AISI 逐页汇报词](p9/paper/P9_逐页汇报词.docx) · [技术附录](P9_技术附录.md) · [变更与复核](p9/复核与变更.md)
 
-文字稿第 2 章综述 67 篇学术文献。已有实验研究覆盖首轮的两种氯富集中间组成，研究先按测量对象、温度和工艺复核文献量级，最终排序由预测冻结后的新粉体检验。逐篇的证据边界及五项原始研究的电导记录可直接查表。[综述文献表](refs/literature_review.csv) · [历史输运对照表](refs/literature_transport_benchmarks.csv)
+P9 在统一主工艺下比较 x=0.0–0.6 七种名义组成。先由相容构型族和实验结构约束获得加权晶内输运分布，再用独立新粉体压片评估宏观排序。研发调度器在质控发布后决定下一项行动。势的微调需要独立参考发现可改变行动的局域偏差，并且验收与重算须及时完成。
 
-~~~text
-名义组成 + 已发布的相/成分证据 → 枚举结构族 → 同口径独立 DFT
-                                            ↓
-元素/坐标/晶胞 → DPA4 → E、F → MD 轨迹 → 晶内输运及其区间
-                                            ↓
-新粉体 → 同粉体分样 → 压片 EIS + 条件 → 锁定 A/B → 新批独立确认
-                                            ↓
-任务和证据时间戳 → DES 队列与费用 → 继续/取消/补证/保留或更新势
-~~~
-
-### 实际结果
-- Oxford 的 PBEsol 文件含 28,100 帧、三个组成。中间组成 x=0.25 和 0.50 尚需独立验证。公开 Li 力模的逐组成分位数已复算。
-- 五种政策使用 5,000 组成对基准重复，另跑 22 个压力设置。相对动态排程且固定势的 B3，允许定向适配的 B4 在基准参数下使首个独立阳性确认的限制均时增加 0.247 h，每个 24 候选队列增加约 830 元情景费用，真合格召回增加 0.066 个百分点。成对区间、分母和实际失败情景均见 [DES 结果](docs/DES_RESULTS.md)。
-- 系统仿真中的费用单价、误判率、势更新效果与时长为明确可替换的参数。现场决策先登记可接受的漏选和成本，再比较同口径策略。
-
-### 从哪里动手
-|负责内容|先打开|第一项可验收产物|
+|证据|本版提供的结果|复核入口|
 |---|---|---|
-|数据与材料|[审计及复算](docs/DATA_AUDIT.md)、[数据清单](configs/dataset_manifest.csv)|冻结来源、单位、重复簇、轨迹族与留出清单|
-|原子计算|[势的数据流](docs/DPA4_ARCHITECTURE.md)、[七张实验卡](experiments/README.md)|同构型上固定权重与独立 DFT 的误差、时长、适用域|
-|实验|[配对方案](docs/WET_EXPERIMENT.md)、[粉体清单](pilot/powders.csv)、[压片清单](pilot/pellets.csv)|合作方确认 SOP 与盲码，记录真实完成、审核和冻结时刻|
-|工业工程|[系统规格](docs/DES_SPEC.md)、[运行说明](simulation/README.md)、[核验记录](simulation/outputs/verification.json)|独立重放同一随机种子，换入实测时长后重新比较|
-|研究归因|[比较协议](docs/COMPARISONS.md)、[主张审计](paper/P8_CLAIM_AUDIT.md)|登记 H1/H2/H3 各自允许得出的结论|
-|图与文稿|[制图说明](figures/README.md)、[复现入口](docs/REPRODUCIBILITY.md)|编辑 draw.io / Blender / Office 源，重新导出图表与报告|
+|公开测量|Mo 等补充表 S1 的 25 ℃ 七点，x=0.4 的点值 8.2 mS/cm 最高。单组七点没有独立批间误差|[证据目录](p9/evidence/README.md)|
+|算法运行|合成结构观测的重加权、共享不确定度的优势/反向/并列概率和 ECDF|[概率排序](p9/ranking/README.md)|
+|政策仿真|512 个配对基准队列及扩展压力、近似约束匹配和联合敏感性。基准中 Q 的首确认限制均时 48.15 h，H 为 58.55 h，但 H 漏诊局域势偏差较少|[新 DES](simulation/p9/README.md)|
+|拟开展试验|结构及原子盲测、MD、样品区组、独立新批、模型运行验收|[实施协议](p9/protocol/VALIDATION.md)|
 
-### 在新目录复核
-Python 3.10+ 的标准库足以运行最小 DES。先读归档验证或指定新的输出目录，完整运行命令和单元口径在 [simulation/README.md](simulation/README.md)。原始逐重复 CSV 使用 gzip 压缩，可直接用 Python 或 pandas 读取。大型公开原包与外部权重按各自许可证单独取得。
+实际能力及预约仍按[宜宾调研](p9/evidence/YIBIN.md)和[现场校准登记](p9/evidence/site_calibration.csv)确认。系统配置中，长期设施能力与具体项目配方、预算、期限分别保存。
 
-~~~sh
-python simulation/verify_run.py
-python simulation/run_study.py --help
+## 复现入口
+
+从仓库根目录运行。概率示例依赖 NumPy，科研图另需 Matplotlib 和 Pillow。Word 及 PowerPoint 导出需要本机相应桌面应用和字体。
+
+~~~powershell
+python p9/ranking/run_demo.py
+python -m unittest discover -s p9/ranking -p "test_*.py"
+python simulation/p9/study.py --reps 512 --stress 128 --dev 64 --workers 8
+python simulation/p9/constraints_sensitivity.py --workers 8
+python simulation/p9/verify.py
+python simulation/p9/register_parameters.py
+python p9/protocol/create_protocol.py
+python p9/figures/make_figures.py
+python p9/paper/build_report.py
+python p9/paper/build_briefing.py --export-pdf
+python p9/paper/verify_p9.py
 ~~~
 
-~~~text
-configs/      数据清单、模型拟议配置、DES 情景和决策参数
-docs/         科学问题、已有研究、验收和模拟结果
-experiments/  固定势、微调、性质任务、多任务与蒸馏实验卡
-figures/      draw.io、SVG、Blender 源、脚本与渲染
-paper/        两份 P8 PDF、Office 可编辑源、汇报词和逐页对照
-pilot/        含父子关系的预登记样品编号
-refs/         引用清单、公开文件实算脚本、哈希与审计结果
-schemas/      原子、样品、事件与模型版本字段
-simulation/   研究用 DES、结果、单次事件流水、图与验证
-tests/        研究和交付的验收条件
-~~~
+Word 正文构建源为 [章节 Markdown](p9/paper/manuscript.md)、[结果](p9/paper/results.md)、[增补参考文献](p9/paper/reference_additions.md)和已登记的章节插入文件。构建后保存[按引文首次出现编号的完整文稿](p9/paper/开题报告_P9_文稿.md)。P9 科研示意图提供 SVG、PNG 和可编辑 draw.io，数值图由公开摘录或实际运行 CSV 生成。
 
-项目版本 P8.0，资料核查日期 2026-11-23。第三方权重、数据与图形来源见 [使用说明](THIRD_PARTY_NOTICES.md)。
+## P8 历史交付
 
+P8 的文稿、原子研究说明和 24 候选 DES V0 结果仍可沿下列入口复核。P9 协议以 p9 目录和 simulation/p9 为准。
+
+[P8 文字版](paper/开题报告_P8.pdf) · [P8 汇报版](paper/汇报版开题报告_P8.pdf) · [P8 技术附录](P8_技术附录.md) · [P8 DES V0](simulation/README.md) · [P8 文献综述表](refs/literature_review.csv)

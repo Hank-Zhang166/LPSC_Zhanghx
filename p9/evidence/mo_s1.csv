@@ -1,0 +1,8 @@
+x,formula,sigma_mS_cm,rank_desc,temperature_C,source,batch_uncertainty
+0.0,Li6PS5Cl,3.7,7,25,Mo 2024 SI Table S1; main Fig.1,unreported
+0.1,Li5.9PS4.9Cl1.1,4.1,6,25,Mo 2024 SI Table S1; main Fig.1,unreported
+0.2,Li5.8PS4.8Cl1.2,4.6,4,25,Mo 2024 SI Table S1; main Fig.1,unreported
+0.3,Li5.7PS4.7Cl1.3,5.1,3,25,Mo 2024 SI Table S1; main Fig.1,unreported
+0.4,Li5.6PS4.6Cl1.4,8.2,1,25,Mo 2024 SI Table S1; main Fig.1,unreported
+0.5,Li5.5PS4.5Cl1.5,5.9,2,25,Mo 2024 SI Table S1; main Fig.1,unreported
+0.6,Li5.4PS4.4Cl1.6,4.2,5,25,Mo 2024 SI Table S1; main Fig.1,unreported

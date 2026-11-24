@@ -1,0 +1,77 @@
+{
+  "base_seed": 481170,
+  "development_seed": 191200,
+  "replicates": 512,
+  "stress_replicates": 128,
+  "dev_replicates": 64,
+  "stress": {
+    "baseline": {},
+    "fixed_adequate": {
+      "prior_bias": 0.01
+    },
+    "zero_gain": {
+      "actual_fit_gain": 0
+    },
+    "negative_gain": {
+      "actual_fit_gain": -0.6
+    },
+    "slow_dft_fit": {
+      "dft_factor": 3,
+      "train_factor": 2.5
+    },
+    "congestion": {
+      "capacity.furnace": 1,
+      "shift_hours.review": 13,
+      "period_h": 1.5
+    },
+    "external_delayed": {
+      "external_factor": 5
+    },
+    "unidentified_structure": {
+      "struct_quality": 0
+    },
+    "coexisting_causes": {
+      "bias_contact_joint": 0.2
+    },
+    "noisy_signals": {
+      "quality_scale": 0.45
+    },
+    "early_freeze": {
+      "freeze_h": 47
+    },
+    "unhelpful_diagnostics": {
+      "quality_scale": 0.0
+    },
+    "premature_md": {
+      "stage_md_factor": 4,
+      "prior_bias": 0.42
+    },
+    "optimistic": {
+      "period_h": 4,
+      "capacity.review": 2,
+      "shift_hours.review": 24,
+      "quality_scale": 1.12
+    },
+    "conservative": {
+      "capacity.furnace": 1,
+      "shift_hours.review": 12,
+      "external_factor": 4,
+      "dft_factor": 2,
+      "quality_scale": 0.65
+    },
+    "tight_budget": {
+      "budget_cny": 8200
+    }
+  },
+  "trace_seed": 481184,
+  "inner": "exact enumeration of binary observation branches; no inner RNG",
+  "sha256": {
+    "belief.py": "0f18086cad5a54497f5a715a5fff59e757c8530302a39d50094dc2c6ee9e24ba",
+    "planning.py": "21d5dcc9b049a4829099fd8f09b876ab86edc3f7c1505b2a36761e2f8cff3463",
+    "engine.py": "f3c07f7abea5299556b06c6e61a093210e526c6afd4a3c0b3c4aa0969f10bbb9",
+    "study.py": "21277ca5ef134a5b3816ebd8da9b8deb9bbd9d9b45939cbc45878164fc8bf1b6",
+    "site.json": "7ae7931fd6210f2b5d52e1da7aabd731b520bfdcc78ac83fe02cda79c009e8f7",
+    "project.json": "232cd5358dc9d972acf6d2a5045c0599342e95c16b3b439d48edd47f64edd76c",
+    "../../p9/ranking/outputs/des_structure_prior.csv": "84ae3433f22227b5e69a35944e91ae06b15a83b0b3c4c144525f51a563d4dae3"
+  }
+}

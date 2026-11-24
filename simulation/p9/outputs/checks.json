@@ -1,0 +1,13 @@
+{
+  "sha256_inputs": 7,
+  "evsi_evpi_bounds_and_total_probability": 49,
+  "uninformative_action_zero_evsi": 42,
+  "future_signal_reversal_leaves_event_and_decision_prefix": 6,
+  "event_rows_with_dependencies_and_slots": 2612,
+  "evaluation_rows": 18432,
+  "exact_replay_records": 162,
+  "cancellation_stock_budget_nonpreemption": true,
+  "stable_keys_and_forward_calendar": true,
+  "matched_operating_points.csv_rows": 12,
+  "joint_sensitivity.csv_rows": 24
+}

@@ -1,10 +1,10 @@
 cff-version: 1.2.0
 message: "使用本研究设计或仿真输出时，请注明版本和仓库提交。"
-title: "氯富集硫银锗矿的输运分歧与序贯验证"
+title: "氯富集硫银锗矿的构型概率排序与研发决策"
 authors:
   - family-names: "张"
     given-names: "皓轩"
-version: "P8.0"
-date-released: 2026-11-23
+version: "P9.0"
+date-released: 2026-11-24
 repository-code: "https://github.com/Hank-Zhang166/LPSC_Zhanghx"
 type: software
