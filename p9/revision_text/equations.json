@@ -1,0 +1,11 @@
+{
+  "prior": "w_i^0=\\frac{g_i\\exp[-F_i/(k_{\\mathrm{B}}T_f)]}{\\sum_j g_j\\exp[-F_j/(k_{\\mathrm{B}}T_f)]}",
+  "collective": "\\sigma_{\\mathrm{coll}}=\\frac{1}{6Vk_{\\mathrm{B}}T}\\lim_{\\tau\\to\\infty}\\frac{\\mathrm{d}}{\\mathrm{d}\\tau}\\left\\langle\\left|\\sum_j q_j\\Delta\\boldsymbol{r}_j(\\tau)\\right|^2\\right\\rangle",
+  "bme": "J(w)=\\frac{1}{2}[\\hat{z}(w)-z]^{\\mathsf T}\\Sigma^{-1}[\\hat{z}(w)-z]+\\lambda\\sum_i w_i\\ln\\frac{w_i}{w_i^0}",
+  "mix": "p_x(s\\mid I_t)=\\sum_{i=1}^{K_x}w_{x,i}\\,p_i(s\\mid x,I_t)",
+  "adv": "p^+_{AB}=P(D>\\delta\\mid I_t),\\quad p^-_{AB}=P(D<-\\delta\\mid I_t),\\quad p^0_{AB}=P(|D|\\leq\\delta\\mid I_t)",
+  "macro": "q_{AB}=P(\\mu_A-\\mu_B>\\delta_{\\mathrm{exp}}\\mid Y_{\\mathrm{batch}})",
+  "risk": "R(I)=\\min_{d\\in\\mathcal D(I)}\\mathrm{E}[L(d,\\theta)\\mid I]",
+  "evsi": "\\mathrm{EVSI}(a\\mid I)=R(I)-\\mathrm{E}_{y\\mid I,a}[R(I,y)]",
+  "rmst": "\\mathrm{RMST}(H)=\\mathrm{E}[\\min(T_{\\mathrm{conf}},H)]"
+}

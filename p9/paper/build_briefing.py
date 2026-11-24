@@ -7,7 +7,6 @@ from __future__ import annotations
 
 import argparse
 from base64 import b64encode
-import csv
 import json
 import os
 from pathlib import Path
@@ -19,6 +18,9 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement as WordElement
 from docx.oxml.ns import qn
 from docx.shared import Cm, Pt as WordPt, RGBColor as WordColor
+from lxml import etree
+from pptx.opc.constants import RELATIONSHIP_TYPE
+from pptx.opc.package import Part
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
@@ -29,15 +31,14 @@ from pptx.util import Inches, Pt
 
 HERE = Path(__file__).resolve().parent
 P9 = HERE.parent
-ROOT = P9.parent
-SIM = ROOT / "simulation" / "p9" / "outputs"
-FIGURES = P9 / "figures"
-TITLE = "氯富集硫银锗矿的构型概率排序与研发决策"
+DELIVERY = P9 / "交付稿"
+FIGURES = P9 / "revision_visuals"
+TITLE = "氯富集硫银锗矿的概率排序与资源受限研发决策"
 AUTHOR = "张皓轩"
 PPTX_NAME = "汇报版开题报告_P9.pptx"
 WORD_NAME = "P9_逐页汇报词.docx"
 INK, TEAL, GRAY = "18343E", "0B7065", "526872"
-NAVY, WHITE, PALE, PAPER = "24495D", "FFFFFF", "E8F4F1", "FAFBF9"
+NAVY, WHITE, PALE, PAPER = "24495D", "FFFFFF", "E8F4F1", "FFFFFF"
 
 
 def color(value):
@@ -91,10 +92,25 @@ def picture(slide, path, title, x, y, width, height):
     shape = slide.shapes.add_picture(str(path), Inches(x + (width - iw) / 2),
                                      Inches(y + (height - ih) / 2), Inches(iw), Inches(ih))
     shape._element.nvPicPr.cNvPr.set("descr", title)
+    vector_path = path.with_suffix(".svg")
+    if vector_path.is_file():
+        package = slide.part.package
+        part = Part(package.next_partname("/ppt/media/vector%d.svg"), "image/svg+xml",
+                    package, vector_path.read_bytes())
+        rel = slide.part.relate_to(part, RELATIONSHIP_TYPE.IMAGE)
+        extension_list = OxmlElement("a:extLst")
+        extension = OxmlElement("a:ext")
+        extension.set("uri", "{96DAC541-7B7A-43D3-8B79-37D633B846F1}")
+        svg_ns = "http://schemas.microsoft.com/office/drawing/2016/SVG/main"
+        ref = etree.SubElement(extension, f"{{{svg_ns}}}svgBlip", nsmap={"asvg": svg_ns})
+        ref.set("{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed", rel)
+        extension_list.append(extension)
+        shape._element.blipFill.blip.append(extension_list)
+
 
 
 def table(slide, headers, rows, widths):
-    x, y, width, height = .67, 2.18, 12, 4.46
+    x, y, width, height = .67, 2.20, 12, 4.32
     table = slide.shapes.add_table(len(rows) + 1, len(headers), Inches(x), Inches(y),
                                    Inches(width), Inches(height)).table
     for j, fraction in enumerate(widths):
@@ -119,7 +135,7 @@ def table(slide, headers, rows, widths):
 
 def figure(slide, page, path):
     callouts = page.get("callouts", [])
-    plot_height = 3.78 if callouts else 4.59
+    plot_height = 3.78 if callouts else 4.62
     picture(slide, path, page["title"], .68, 2.04, 11.98, plot_height)
     for i, (label, detail) in enumerate(callouts):
         x = .68 + 4.03 * i
@@ -129,13 +145,13 @@ def figure(slide, page, path):
 
 
 def cover(slide, page):
-    block(slide, 0, 0, 13.333, 7.5, "F1F5F1")
+    block(slide, 0, 0, 13.333, 7.5, "F2F6F3")
     block(slide, .68, .75, .44, .07, TEAL)
     text(slide, page["section"], 1.22, .53, 5.7, .50, 15, TEAL, True)
-    text(slide, "氯富集硫银锗矿的\n构型概率排序与研发决策", .67, 1.60, 7.14, 1.91, 33, INK, True)
+    text(slide, "氯富集硫银锗矿的概率排序\n与资源受限研发决策", .67, 1.64, 7.32, 1.88, 31, INK, True)
     text(slide, page["lead"], .71, 3.78, 6.65, 1.12, 20, NAVY)
     text(slide, page["source"], .71, 6.01, 7.05, .47, 14, GRAY)
-    picture(slide, ROOT / "figures/blender/pellet.png", "阻挡电极与多晶压片分解示意",
+    picture(slide, FIGURES / "pellet_cutaway.png", "阻挡电极与多晶压片分解示意",
             7.20, .44, 5.72, 5.88)
     text(slide, "阻挡电极与多晶压片的分解示意", 7.20, 6.36, 5.72, .34, 11, GRAY,
          align=PP_ALIGN.CENTER)
@@ -145,42 +161,12 @@ def slide_header(slide, page):
     block(slide, 0, 0, 13.333, 7.5, PAPER)
     block(slide, .65, .43, .25, .052, TEAL)
     text(slide, page["section"], 1, .25, 8.3, .41, 12, TEAL, True)
-    text(slide, "LPSC  /  P9", 10.0, .25, 2.67, .41, 12, GRAY, align=PP_ALIGN.RIGHT)
     text(slide, page["title"], .65, .80, 12, .72, 29, INK, True)
     text(slide, page["lead"], .68, 1.53, 11.97, .49, 15, GRAY)
     block(slide, .67, 6.86, 12, .013, "CBD9D6")
     text(slide, page["source"], .67, 6.95, 11.15, .36, 10, GRAY)
     text(slide, str(page["page"]).zfill(2), 12.05, 6.94, .61, .37, 13, TEAL, True,
          align=PP_ALIGN.RIGHT)
-
-
-def reference_tables(kind):
-    """Offer editable tables for the three DES graphics if PNGs are unavailable."""
-    if kind == "policy":
-        with (SIM / "policy_summary.csv").open(encoding="utf-8-sig") as file:
-            values = {(r["policy"], r["metric"]): float(r["mean"]) for r in csv.DictReader(file)
-                      if r["scenario"] == "baseline" and r["setting"] == "default"}
-        rows = [[p, f"{values[p, 'restricted_h']:.2f}", f"{values[p, 'cost']:,.0f}",
-                 f"{values[p, 'recall']:.2%}", f"{values[p, 'true_confirmed_run']:.2%}"]
-                for p in ("F", "G", "B", "Q", "H", "H-fit")]
-        return ["政策", "限制均时 / h", "费用 / 元", "真合格召回", "至少一次真阳性"], rows, [.16, .20, .20, .20, .24]
-    if kind == "paired":
-        with (SIM / "paired_effects.csv").open(encoding="utf-8-sig") as file:
-            values = {(r["action"], r["reference"], r["metric"]): r for r in csv.DictReader(file)
-                      if r["scenario"] == "baseline" and r["setting"] == "default"}
-        rows = []
-        for action, base in (("H", "Q"), ("H-fit", "H")):
-            for metric, label, scale in (("restricted_h", "限制均时 / h", 1), ("cost", "队列费用 / 元", 1),
-                                         ("recall", "真合格召回 / 百分点", 100)):
-                result = values[action, base, metric]
-                delta, lo, hi = [float(result[k]) * scale for k in ("delta", "lo95", "hi95")]
-                rows.append([f"{action} − {base}", label, f"{delta:+.3g}", f"{lo:+.3g} 至 {hi:+.3g}"])
-        return ["对照", "指标", "配对差", "95% MC 区间"], rows, [.18, .32, .20, .30]
-    rows = [["53.06 h", "x = 0.2 DFT 阳性发布", "适配预计 79.37 h 发布，晚于 79 h 冻结"],
-            ["54.80 h", "队列变化，适配提交", "更新预估发布时刻为 73.38 h"],
-            ["55.14 h", "x = 0.1 新批阳性发布", "先于新势形成首确认"],
-            ["72.75 h", "新势通过与长 MD 重算", "x = 0.6 的重算结果 78.24 h 发布"]]
-    return ["时间", "事件", "决策影响"], rows, [.18, .39, .43]
 
 
 def build_slides(pages, out):
@@ -199,10 +185,7 @@ def build_slides(pages, out):
                 table(slide, page["columns"], page["rows"], [.22, .38, .40])
             else:
                 path = FIGURES / (page["figure"] + ".png")
-                if path.is_file() or kind == "figure":
-                    figure(slide, page, path)
-                else:
-                    table(slide, *reference_tables(kind))
+                figure(slide, page, path)
         slide.notes_slide.notes_text_frame.text = page["speech"]
     path = out / PPTX_NAME
     deck.save(path)
@@ -290,7 +273,7 @@ try {
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--out", type=Path, default=HERE)
+    parser.add_argument("--out", type=Path, default=DELIVERY)
     parser.add_argument("--export-pdf", action="store_true")
     parser.add_argument("--notes-pdf", type=Path)
     args = parser.parse_args()

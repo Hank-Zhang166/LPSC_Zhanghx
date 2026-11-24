@@ -1,4 +1,9 @@
 """Build school-format P9 Word and PDF using the shared P8 text/field helpers."""
+from copy import deepcopy
+from itertools import groupby
+import json
+import csv
+from lxml import etree
 import argparse
 import base64
 import os
@@ -19,59 +24,165 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 sys.path.insert(0, str(ROOT / "paper"))
 import build_manuscript as shared
+from school_math import add_inline, display
+
+PLAIN = shared.text
+def manuscript_text(paragraph, value):
+    return add_inline(paragraph, value, PLAIN)
+
+shared.text = manuscript_text
+OUTPUT = ROOT / "p9/交付稿"
+
 
 CITATION = re.compile(r"\[([1-9]\d*(?:[,–-][1-9]\d*)*)\]")
 FIGURE = re.compile(r"!\[(图 \d+\.\d+)　(.+)\]\(([^)]+)\)$")
 TABLE = re.compile(r"(表 \d+\.\d+)　([^。]+)(?:。(.*))?$")
-SHORT = {
-    "表 1.1": "研究假设、对照与终点",
-    "表 2.1": "七组成公开实验基准",
-    "表 2.2": "原子数据可用范围",
-    "表 4.1": "观测与诊断对象",
-}
-
+SHORT = {}
 
 def read(path):
     return path.read_text(encoding="utf-8-sig")
 
 
-def compose(preview=False):
-    old = read(ROOT / "paper/manuscript.md")
-    review = "#### 2.1.1" + old.split("#### 2.1.1", 1)[1].split("#### 2.1.7", 1)[0]
-    review = review.replace("P8 因而", "本研究因而").replace("因此 P8 采用", "因此本课题拟采用")
-    review = re.sub(r"因此，P8 应给成本感知规则 B2[^\n]+。",
-                    "因此需以同观测预算比较单步规则和有限前瞻，并单独验证队列因素。", review)
-    review = review.replace("因此 P8 分开记录", "本课题分开记录")
-    review = re.sub(r"B3 与 B4 遵守[^\n]+。", "将适配、发布与重算条件纳入策略对照。", review)
-    body, tail = read(HERE / "manuscript.md").replace("@LITERATURE", review.rstrip()).split("@REFERENCES", 1)
-    for marker, path in (
-        ("@EVIDENCE", ROOT / "p9/evidence/report_insert.md"),
-        ("@RANK_CASE", ROOT / "p9/ranking/report_insert.md"),
-        ("@RESULTS", HERE / "results.md"),
-        ("@DES_CASE", ROOT / "simulation/p9/report_insert.md"),
-    ):
-        if marker in body:
-            content = "" if preview and not path.is_file() else read(path).strip()
-            body = body.replace(marker, content)
-    existing = read(ROOT / "paper/manuscript_des.md")
-    ref_file = "\n".join((existing, read(HERE / "reference_additions.md")))
-    references = {int(k): v for k, v in re.findall(r"(?m)^\[(\d+)\] (.+)$", ref_file)}
+def compose():
+    body = read(ROOT / "p9/revision_text/report.md")
+    with (ROOT / "p9/evidence/ordering_stress.csv").open(encoding="utf-8-sig") as f:
+        stress = [r for r in csv.DictReader(f) if float(r["factor"]) in (1.02, 1.05, 1.10, 1.20)]
+    rows = [f"| {float(r['factor']):.2f} | {r['forced_directions']} | {r['overlapping_directions']} | {r['possible_maxima_x']} |" for r in stress]
+    margins = read(ROOT / "p9/evidence/ordering_insert.md").replace("@@MARGINROWS@@", "\n".join(rows))
+    body = body.replace("@@MARGINS@@", margins.strip())
+    result = read(ROOT / "simulation/redesign/results.md").strip()
+    body = body.replace("@@SIMRESULTS@@", result)
+    manifest = json.loads(read(ROOT / "p9/revision_visuals/manifest.json"))
+    equations = json.loads(read(ROOT / "p9/revision_text/equations.json"))
+    figure_names = {}
+    equation_names = {}
+    chapter = None
+    nfigure, neq = 0, 0
+    rendered = []
+    for line in body.splitlines():
+        heading = re.match(r"^## 第\s*(\d+)\s*章", line)
+        if heading:
+            chapter = heading[1]
+            nfigure, neq = 0, 0
+        if marker := re.fullmatch(r"@@(FIG|EQ):([\w-]+)@@", line.strip()):
+            kind, key = marker.groups()
+            if not chapter:
+                raise ValueError(f"{key} precedes chapter 1")
+            if kind == "FIG":
+                if key in figure_names:
+                    raise ValueError(f"Duplicate figure {key}")
+                nfigure += 1
+                label = f"图 {chapter}.{nfigure}"
+                figure_names[key] = label
+                caption = manifest[key]["caption"]
+                path = f"p9/revision_visuals/{key}.png"
+                if not (ROOT / path).exists():
+                    raise FileNotFoundError(path)
+                line = f"![{label}　{caption}]({path})"
+            else:
+                if key in equation_names:
+                    raise ValueError(f"Duplicate equation {key}")
+                neq += 1
+                number = f"{chapter}.{neq}"
+                equation_names[key] = f"式（{number}）"
+                line = f"@@MATH {number} {equations[key]}@@"
+        rendered.append(line)
+    body = "\n".join(rendered)
+    crossrefs = {**figure_names, **equation_names}
+    body = re.sub(r"@@REF:([\w-]+)@@", lambda m: crossrefs[m[1]], body)
+    if re.search(r"@@(?!MATH\b|REFERENCES@@)[A-Za-z][A-Za-z_:.-]+@@", body):
+        raise ValueError("Unresolved authoring marker in manuscript")
+    raw_refs = read(ROOT / "paper/manuscript_des.md") + "\n" + read(HERE / "reference_additions.md")
+    refs = {int(k): v for k, v in re.findall(r"(?m)^\[(\d+)\] (.+)$", raw_refs)}
     order = {}
 
     def renumber(hit):
-        numbers = []
-        for value in hit[1].split(","):
-            first, *last = (int(k) for k in re.split("[–-]", value))
-            numbers.extend(range(first, (last[0] if last else first) + 1))
-        for old_id in numbers:
-            if old_id not in references:
-                raise ValueError(f"Missing bibliographic entry {old_id}")
-            order.setdefault(old_id, len(order) + 1)
-        return "[" + ",".join(str(i) for i in sorted({order[n] for n in numbers})) + "]"
+        ids = []
+        for part in hit[1].split(","):
+            start, *end = map(int, re.split(r"[–-]", part))
+            for key in range(start, (end[0] if end else start) + 1):
+                if key not in refs:
+                    raise ValueError(f"Missing source {key}")
+                ids.append(order.setdefault(key, len(order) + 1))
+        numbers = sorted(set(ids))
+        grouped = []
+        for _, consecutive in groupby(enumerate(numbers), lambda item: item[1] - item[0]):
+            v = [b for _, b in consecutive]
+            grouped.extend([f"{v[0]}–{v[-1]}"] if len(v) > 2 else map(str, v))
+        return "[" + ",".join(grouped) + "]"
 
     body = CITATION.sub(renumber, body)
-    first = "\n".join(f"[{new}] {references[old_id]}" for old_id, new in order.items())
-    return body + first + "\n\n" + tail.strip() + "\n"
+    bibliography = "## 参考文献\n" + "\n".join(f"[{new}] {refs[old]}" for old, new in order.items())
+    if "@@REFERENCES@@" in body:
+        body = body.replace("@@REFERENCES@@", bibliography)
+    elif "## 参考文献" in body:
+        body = body.replace("## 参考文献", bibliography, 1)
+    else:
+        m = re.search(r"^## 附录", body, re.M)
+        ix = m.start() if m else len(body)
+        body = body[:ix].rstrip() + "\n\n" + bibliography + "\n\n" + body[ix:]
+    return body.rstrip() + "\n"
+
+
+def locate_template(explicit, existing):
+    if explicit:
+        return Path(explicit)
+    name = "20261103-综合论文训练论文-开题报告模板.docx"
+    found = list((Path.home() / "Desktop" / "毕设").glob("*/" + name))
+    if found:
+        return found[0]
+    for saved in (existing, OUTPUT / "开题报告_P9.docx"):
+        if saved.is_file():
+            return saved
+    raise FileNotFoundError("Pass --template with the Tsinghua proposal template.")
+
+
+def template_cover(template, title, adviser):
+    """Retain the original school wordmark, layout, styles and cover metadata table."""
+    doc = Document(template)
+    body = doc._element.body
+    boundary = next(p for p in body if p.find("./" + qn("w:pPr") + "/" + qn("w:sectPr")) is not None)
+    section = deepcopy(boundary.find("./" + qn("w:pPr") + "/" + qn("w:sectPr")))
+    for el in list(body)[list(body).index(boundary):]:
+        body.remove(el)
+    body.append(section)
+    for node in list(body.iter()):
+        if etree.QName(node).localname in ("AlternateContent","bookmarkStart","bookmarkEnd"):
+            node.getparent().remove(node)
+    cover_title = [p for p in doc.paragraphs if p.style.name == "封面论文题目"]
+    if not cover_title:
+        raise ValueError("School cover title style was not found")
+    for p in cover_title:
+        p.clear()
+        p.paragraph_format.line_spacing = 1.25
+    # The school's cover provides two title lines.
+    points = [title.find(k) for k in ("与资源", "与研发", "与序贯", "与诊断", "的序贯")]
+    split = next((i for i in points if i > 4), None)
+    if split and len(cover_title) >= 2:
+        parts = [(cover_title[-2], title[:split]), (cover_title[-1], title[split:])]
+    else:
+        parts = [(cover_title[-1], title)]
+    for p, part in parts:
+        shared.font(p.add_run(part), "SimHei", "SimHei", 26)
+    for row, content in zip(doc.tables[0].rows, ("工业工程系", "工业工程", "张 皓 轩", adviser)):
+        p = row.cells[-1].paragraphs[0]
+        p.clear()
+        shared.font(p.add_run(content), "仿宋", "Times New Roman", 16)
+    dates = [p for p in doc.paragraphs if p.text.strip().endswith("月") and "年" in p.text]
+    if dates:
+        p = dates[-1]
+        p.clear()
+        shared.font(p.add_run("二〇二六年十一月"), "宋体", "Times New Roman", 16)
+        for extra in list(p._p.itersiblings()):
+            if extra.tag == qn("w:p") and not list(extra.iter(qn("w:t"))):
+                extra.getparent().remove(extra)
+    for st in ("Heading 1", "Heading 2", "Heading 3"):
+        pr = doc.styles[st].element.get_or_add_pPr()
+        for el in list(pr):
+            if el.tag in (qn("w:numPr"), qn("w:pBdr")):
+                pr.remove(el)
+    return doc
+
 
 
 def make_style(doc, name, cn, western, point, align, first=0, before=0, after=0, line=20, keep=False):
@@ -86,7 +197,7 @@ def make_style(doc, name, cn, western, point, align, first=0, before=0, after=0,
 
 def configure(doc):
     left, centered = Align.LEFT, Align.CENTER
-    make_style(doc, "Normal", "宋体", "Times New Roman", 12, Align.JUSTIFY, first=24)
+    make_style(doc, "P9 body", "宋体", "Times New Roman", 12, Align.JUSTIFY, first=24)
     make_style(doc, "Title", "SimHei", "SimHei", 26, centered, line=0)
     make_style(doc, "Heading 1", "SimHei", "Arial", 16, centered, before=24, after=18, line=0, keep=True)
     make_style(doc, "Heading 2", "SimHei", "Arial", 14, left, before=24, after=6, keep=True)
@@ -106,44 +217,42 @@ def configure(doc):
     for node in list(doc.styles["Title"].element.iter(qn("w:pBdr"))):
         node.getparent().remove(node)
     shared.secsetup(doc.sections[0], True)
+    for st in ("P9 body","Heading 1","Heading 2","Heading 3","P8 table","P8 table header"):
+        pr = doc.styles[st].element.get_or_add_pPr()
+        prop = pr.find(qn("w:snapToGrid"))
+        if prop is None:
+            prop = shared.xml("snapToGrid")
+            pr.append(prop)
+        prop.set(qn("w:val"), "0")
     doc.core_properties.author = "张皓轩"
     doc.core_properties.subject = "清华大学综合论文训练开题报告 P9"
 
 
-def cover(doc, title, adviser=""):
-    def line(value, face, size, before=0, after=0, style=None):
-        p = doc.add_paragraph(style=style)
-        p.alignment = Align.CENTER
-        p.paragraph_format.first_line_indent = Pt(0)
-        p.paragraph_format.space_before, p.paragraph_format.space_after = Pt(before), Pt(after)
-        p.paragraph_format.line_spacing = 1.25
-        r = p.add_run(value)
-        shared.font(r, face, face, size)
-    line("综 合 论 文 训 练", "SimHei", 22, 16, 40)
-    line(title.replace("与研发决策", "\n与研发决策"), "SimHei", 26, 0, 24, "Title")
-    line("开 题 报 告", "SimHei", 21, 0, 68)
-    for label, value in (("系　　别", "工业工程系"), ("专　　业", "工业工程"),
-                         ("姓　　名", "张 皓 轩"), ("指导教师", adviser)):
-        p = doc.add_paragraph()
-        p.paragraph_format.left_indent = Cm(3.6)
-        p.paragraph_format.first_line_indent = Pt(0)
-        p.paragraph_format.space_after = Pt(7)
-        shared.font(p.add_run(f"{label}：{value}"), "仿宋", "Times New Roman", 16)
-    line("二〇二六年十一月", "宋体", 16, 40)
-
-
 def academic_table(doc, data):
-    cols = len(data[0])
-    fractions = {2: [.28, .72], 3: [.23, .37, .40],
-                 4: [.13, .42, .25, .20]}.get(cols)
+    from math import sqrt
+    # Allocate width by text content, while keeping brief numeric columns legible.
+    if any(len(row) != len(data[0]) for row in data):
+        raise ValueError("Inconsistent Markdown table width")
+    weights = [sqrt(max(6, max(sum(1 if ord(c) < 128 else 2 for c in x) for x in col)))
+               for col in zip(*data)]
+    fractions = [w / sum(weights) for w in weights]
     tb = shared.table(doc, data, fractions)
+    for margins in tb._tbl.iter(qn("w:tblCellMar")):
+        for side in ("top","bottom"):
+            node = margins.find(qn("w:"+side))
+            if node is not None:
+                node.set(qn("w:w"), "0")
+    for row in tb.rows[1:]:
+        for cell in row.cells:
+            if re.fullmatch(r"[\d.,% −–+]+", cell.text.strip()):
+                cell.paragraphs[0].alignment = Align.CENTER
     for node in tb._tbl.iter(qn("w:top")):
         if node.get(qn("w:val")) == "single":
             node.set(qn("w:sz"), "12")
     for cell in tb.rows[0].cells:
         for node in cell._tc.iter(qn("w:bottom")):
             node.set(qn("w:sz"), "8")
-    if len(data) <= 8:
+    if len(data) <= 12:
         for row in tb.rows[:-1]:
             for cell in row.cells:
                 for p in cell.paragraphs:
@@ -159,14 +268,24 @@ def figure(doc, key, caption, relpath, index):
     p.paragraph_format.first_line_indent = Pt(0)
     p.paragraph_format.line_spacing = 1.0
     p.paragraph_format.keep_with_next = True
-    image = p.add_run().add_picture(str(path), width=Cm(min(15, 10.3*w/h)))
+    image = p.add_run().add_picture(str(path), width=Cm(min(15, 11.5*w/h)))
     image._inline.docPr.set("descr", caption)
     cp = doc.add_paragraph(style="P9 figure")
     shared.text(cp, f"{key}　{caption}")
     shared.bmark(cp, shared.bookmark(key), index)
+    item = json.loads(read(ROOT / "p9/revision_visuals/manifest.json"))[path.stem]
+    if item.get("source"):
+        cp.paragraph_format.keep_with_next = True
+        cp.paragraph_format.space_after = Pt(2)
+        note = doc.add_paragraph(style="P9 source")
+        note.paragraph_format.space_before = Pt(0)
+        note.paragraph_format.keep_together = True
+        shared.text(note, "图注　" + item["source"])
 
 
 def front(doc, lines):
+    # Cover is single-sided. Reserve its unnumbered reverse for duplex printing.
+    doc.add_page_break()
     shared.secsetup(doc.add_section(WD_SECTION.NEW_PAGE), num="upperRoman")
     doc.add_paragraph("目　录", "P9 front")
     shared.field(doc.add_paragraph(style="P9 entry"), 'TOC \\o "1-3" \\h \\z', "请更新目录")
@@ -187,32 +306,49 @@ def front(doc, lines):
             shared.field(p, "PAGEREF " + shared.bookmark(key) + " \\h")
     p = doc.add_paragraph("符号和缩略语说明", "P9 front")
     p.paragraph_format.page_break_before = True
-    academic_table(doc, [["符号", "含义"], ["DFT / MD", "密度泛函理论 / 分子动力学"],
-                         ["XRD / EIS", "X 射线衍射 / 电化学阻抗谱"],
-                         ["BME / ESS", "贝叶斯最大熵重加权 / 有效样本大小"],
-                         ["EVSI / DES", "样本信息期望价值 / 离散事件仿真"],
-                         ["RMST", "到首次独立阳性确认的限制平均时间"],
-                         ["λ / δ", "重加权正则强度 / 最小可行动差"]])
+    glossary = [
+        ("$x$", "富氯程度，对应七个名义组成"),
+        ("$C_i$，$w_i$", "同一组成内的第 i 个结构族及其条件权重"),
+        ("$F_i$，$T_f$", "同口径整胞自由能和有效冻结温度"),
+        ("$I_t$", "时刻 t 已正式发布的证据及当前可用资源"),
+        (r"$S$，$\delta$", "随机结构族的晶内对数输运量及最小可行动差"),
+        ("$p^+$，$p^-$，$p^0$", "配方对的优势、反向优势及近似并列概率"),
+        ("$q_{AB}$", "同工艺新粉体平均效应超过实验阈值的概率"),
+        ("DPA4", "原子势模型，用于预测原子体系的能量、力和维里量"),
+        ("DFT / MD", "密度泛函理论 / 分子动力学"),
+        ("XRD / EIS", "X 射线衍射 / 电化学阻抗谱"),
+        ("BME / ESS", "贝叶斯最大熵重加权 / 有效样本大小"),
+        ("EVSI / DES", "样本信息期望价值 / 离散事件仿真"),
+        ("RMST", "至首份可见独立阳性报告的限制平均时间"),
+    ]
+    for symbol, description in glossary:
+        item = doc.add_paragraph(style="P9 entry")
+        item.paragraph_format.tab_stops.add_tab_stop(Cm(3.5))
+        shared.text(item, symbol)
+        item.add_run("\t")
+        shared.text(item, description)
+
 
 
 def chapter_title(value):
-    return re.sub(r"^第(\d+)章　", r"第 \1 章　", value)
+    return re.sub(r"^第\s*(\d+)\s*章\s*", r"第 \1 章　", value)
 
 
-def build(out, adviser="", preview=False):
-    source = compose(preview)
+def build(out, adviser="", template=None):
+    source = compose()
     lines = [s.strip() for s in source.splitlines() if s.strip()]
-    doc = Document()
+    file = out / "开题报告_P9.docx"
+    doc = template_cover(locate_template(template, file), lines[0][2:], adviser)
     configure(doc)
     doc.core_properties.title = lines[0][2:]
-    cover(doc, lines[0][2:], adviser)
+    doc.core_properties.last_modified_by = "张皓轩"
     front(doc, lines)
     index, mode, i = 100, "", 1
     while i < len(lines):
         s = lines[i]
         if s.startswith("## "):
             mode = s[3:]
-            first = mode.startswith("第1章")
+            first = bool(re.match(r"第\s*1\s*章", mode))
             if first:
                 shared.secsetup(doc.add_section(WD_SECTION.ODD_PAGE), num="decimal")
             head = doc.add_paragraph(chapter_title(mode), "P9 front" if mode == "摘要" else "Heading 1")
@@ -245,20 +381,20 @@ def build(out, adviser="", preview=False):
                 shared.text(doc.add_paragraph(style="P9 source"), explanation)
         elif s.startswith("[") and mode.startswith("参考文献"):
             shared.bibliography_entry(doc.add_paragraph(style="P9 reference"), s)
-        elif s.startswith("$$ ") and s.endswith(" $$"):
-            formula, number = s[3:-3].rsplit("　", 1)
-            p = doc.add_paragraph(style="P9 equation")
-            p.alignment = Align.LEFT
-            p.paragraph_format.tab_stops.add_tab_stop(Cm(7.5), Tab.CENTER)
-            p.paragraph_format.tab_stops.add_tab_stop(Cm(15), Tab.RIGHT)
-            p.add_run(f"\t{formula}\t{number}")
+        elif match := re.fullmatch(r"@@MATH ([\d.]+) (.+)@@", s):
+            display(doc, match[2], match[1])
         else:
-            shared.text(doc.add_paragraph(), s)
+            shared.text(doc.add_paragraph(style="P9 body"), s)
         i += 1
     out.mkdir(parents=True, exist_ok=True)
-    file = out / "开题报告_P9.docx"
     doc.save(file)
-    (out / "开题报告_P9_文稿.md").write_text(source, encoding="utf-8")
+    markdown = re.sub(r"^@@MATH ([\d.]+) (.+)@@$", lambda m: "$$\n" + m[2] + r"\tag{" + m[1] + "}\n$$", source, flags=re.M)
+    markdown_dir = HERE if out.resolve() == OUTPUT.resolve() else out
+    def relative_image(match):
+        relative = Path(os.path.relpath(ROOT / match[2], markdown_dir)).as_posix()
+        return f"![{match[1]}]({relative})"
+    markdown = re.sub(r"!\[([^\n]+)\]\((p9/[^)]+)\)", relative_image, markdown)
+    (markdown_dir / "开题报告_P9_文稿.md").write_text(markdown, encoding="utf-8")
     return file
 
 
@@ -304,11 +440,11 @@ try {
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--out", type=Path, default=HERE)
+    parser.add_argument("--out", type=Path, default=OUTPUT)
     parser.add_argument("--adviser", default="")
     parser.add_argument("--docx-only", action="store_true")
-    parser.add_argument("--preview", action="store_true")
+    parser.add_argument("--template", type=Path)
     args = parser.parse_args()
-    path = build(args.out, args.adviser, args.preview)
+    path = build(args.out, args.adviser, args.template)
     if not args.docx_only:
         export(path)

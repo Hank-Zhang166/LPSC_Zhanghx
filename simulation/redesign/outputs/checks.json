@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "test_count": 10,
+  "main_rows": 12288,
+  "exact_replays": 90,
+  "public_input_boundary": true
+}

@@ -1,0 +1,85 @@
+time_h,event,candidate,action,resource,detail
+0.0,initial_release,0.0,screen,,-
+0.0,initial_release,0.0,old,,+
+0.0,initial_release,0.1,screen,,+
+0.0,initial_release,0.1,old,,+
+0.0,initial_release,0.2,screen,,+
+0.0,initial_release,0.2,old,,+
+0.0,initial_release,0.3,screen,,+
+0.0,initial_release,0.3,old,,-
+0.0,initial_release,0.4,screen,,+
+0.0,initial_release,0.4,old,,-
+0.0,initial_release,0.5,screen,,-
+0.0,initial_release,0.5,old,,+
+0.0,initial_release,0.6,screen,,-
+0.0,initial_release,0.6,old,,+
+0.0,submitted,0.2,structure,,V=0.8892; alternative=0.7627; immediate=0.8463
+0.0,start,0.2,structure,struct,stage=1; batch=B1/compute
+0.0,wait,,,,wait_for_report
+4.1211,complete,0.2,structure,struct,stage=1
+4.1211,start,0.2,structure,review,stage=2; batch=B1/compute
+4.1211,wait,,,,wait_for_report
+5.0474,complete,0.2,structure,review,stage=2
+5.0474,qc_released,0.2,structure,review,+; p_candidate=0.964; P_shared=0.526; leader=0.1->0.2
+5.0474,submitted,0.2,contact,,V=0.9321; alternative=0.8872; immediate=0.9046
+5.0474,start,0.2,contact,pellet,stage=1; batch=B1/compute
+5.0474,wait,,,,wait_for_report
+7.4221,complete,0.2,contact,pellet,stage=1
+7.4221,start,0.2,contact,review,stage=2; batch=B1/compute
+7.4221,wait,,,,wait_for_report
+8.1983,complete,0.2,contact,review,stage=2
+8.1983,qc_released,0.2,contact,review,-; p_candidate=0.988; P_shared=0.534; leader=0.2->0.2
+8.1983,submitted,0.2,pellet,,V=0.9710; alternative=0.9632; immediate=0.9632
+8.1983,start,0.2,pellet,pellet,stage=1; batch=B1/compute
+8.1983,wait,,,,wait_for_report
+11.4089,complete,0.2,pellet,pellet,stage=1
+11.4089,start,0.2,pellet,review,stage=2; batch=B1/compute
+11.4089,wait,,,,wait_for_report
+12.4298,complete,0.2,pellet,review,stage=2
+12.4298,qc_released,0.2,pellet,review,-; p_candidate=0.930; P_shared=0.547; leader=0.2->0.2
+12.4298,submitted,0.1,structure,,V=0.8930; alternative=0.7827; immediate=0.8621
+12.4298,start,0.1,structure,struct,stage=1; batch=B1/compute
+12.4298,wait,,,,wait_for_report
+16.4508,complete,0.1,structure,struct,stage=1
+16.4508,start,0.1,structure,review,stage=2; batch=B1/compute
+16.4508,wait,,,,wait_for_report
+17.0965,complete,0.1,structure,review,stage=2
+17.0965,qc_released,0.1,structure,review,+; p_candidate=0.967; P_shared=0.516; leader=0.2->0.1
+17.0965,submitted,0.1,pellet,,V=0.9339; alternative=0.8983; immediate=0.9321
+17.0965,start,0.1,pellet,pellet,stage=1; batch=B1/compute
+17.0965,wait,,,,wait_for_report
+19.9719,complete,0.1,pellet,pellet,stage=1
+19.9719,start,0.1,pellet,review,stage=2; batch=B1/compute
+19.9719,wait,,,,wait_for_report
+20.9595,complete,0.1,pellet,review,stage=2
+20.9595,qc_released,0.1,pellet,review,-; p_candidate=0.826; P_shared=0.538; leader=0.1->0.2
+20.9595,submitted,0.3,structure,,V=0.8511; alternative=0.7841; immediate=0.7890
+20.9595,start,0.3,structure,struct,stage=1; batch=B1/compute
+20.9595,wait,,,,wait_for_report
+25.0222,complete,0.3,structure,struct,stage=1
+25.0222,start,0.3,structure,review,stage=2; batch=B1/compute
+25.0222,wait,,,,wait_for_report
+25.7995,complete,0.3,structure,review,stage=2
+25.7995,qc_released,0.3,structure,review,+; p_candidate=0.929; P_shared=0.619; leader=0.2->0.3
+25.7995,submitted,0.3,pellet,,V=0.8741; alternative=0.7787; immediate=0.8741
+25.7995,start,0.3,pellet,pellet,stage=1; batch=B1/compute
+25.7995,submitted,0.3,dft,,V=0.8793; alternative=0.8741; immediate=0.8649
+25.7995,start,0.3,dft,dft,stage=1; batch=B1/compute
+30.2142,complete,0.3,pellet,pellet,stage=1
+30.2142,start,0.3,pellet,review,stage=2; batch=B1/compute
+30.5685,complete,0.3,dft,dft,stage=1
+31.5634,complete,0.3,pellet,review,stage=2
+31.5634,qc_released,0.3,pellet,review,-; p_candidate=0.677; P_shared=0.557; leader=0.3->0.2
+31.5634,start,0.3,dft,review,stage=2; batch=B1/compute
+31.5634,wait,,,,no_feasible_release
+32,lock,0.2,confirm,,floor=0.68; posterior=0.9299; eligible=4
+32,submitted,0.2,confirm,,reserved independent powder B2
+32,start,0.2,confirm,furnace,stage=1; batch=B2
+32.5467,complete,0.3,dft,review,stage=2
+32.5467,late_release,0.3,dft,review,+
+42.8445,complete,0.2,confirm,furnace,stage=1
+42.8445,start,0.2,confirm,pellet,stage=2; batch=B2
+46.3661,complete,0.2,confirm,pellet,stage=2
+46.3661,start,0.2,confirm,review,stage=3; batch=B2
+47.7463,complete,0.2,confirm,review,stage=3
+47.7463,independent_release,0.2,confirm,review,+

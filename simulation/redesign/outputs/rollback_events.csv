@@ -1,0 +1,80 @@
+time_h,event,candidate,action,resource,detail
+0.0,initial_release,0.0,screen,,+
+0.0,initial_release,0.0,old,,-
+0.0,initial_release,0.1,screen,,+
+0.0,initial_release,0.1,old,,+
+0.0,initial_release,0.2,screen,,+
+0.0,initial_release,0.2,old,,-
+0.0,initial_release,0.3,screen,,+
+0.0,initial_release,0.3,old,,+
+0.0,initial_release,0.4,screen,,+
+0.0,initial_release,0.4,old,,+
+0.0,initial_release,0.5,screen,,+
+0.0,initial_release,0.5,old,,-
+0.0,initial_release,0.6,screen,,+
+0.0,initial_release,0.6,old,,+
+0.0,submitted,0.3,structure,,V=0.8489; alternative=0.7264; immediate=0.7951
+0.0,start,0.3,structure,struct,stage=1; batch=B1/compute
+0.0,wait,,,,wait_for_report
+5.0451,complete,0.3,structure,struct,stage=1
+5.0451,start,0.3,structure,review,stage=2; batch=B1/compute
+5.0451,wait,,,,wait_for_report
+5.9801,complete,0.3,structure,review,stage=2
+5.9801,qc_released,0.3,structure,review,-; p_candidate=0.736; P_shared=0.468; leader=0.1->0.1
+5.9801,submitted,0.4,structure,,V=0.8355; alternative=0.7079; immediate=0.7654
+5.9801,start,0.4,structure,struct,stage=1; batch=B1/compute
+5.9801,wait,,,,wait_for_report
+10.2168,complete,0.4,structure,struct,stage=1
+10.2168,start,0.4,structure,review,stage=2; batch=B1/compute
+10.2168,wait,,,,wait_for_report
+10.9778,complete,0.4,structure,review,stage=2
+10.9778,qc_released,0.4,structure,review,-; p_candidate=0.719; P_shared=0.547; leader=0.1->0.1
+10.9778,submitted,0.0,dft,,V=0.8260; alternative=0.6902; immediate=0.7324
+10.9778,start,0.0,dft,dft,stage=1; batch=B1/compute
+10.9778,wait,,,,wait_for_report
+13.5597,complete,0.0,dft,dft,stage=1
+13.5597,start,0.0,dft,review,stage=2; batch=B1/compute
+13.5597,wait,,,,wait_for_report
+14.3245,complete,0.0,dft,review,stage=2
+14.3245,qc_released,0.0,dft,review,+; p_candidate=0.911; P_shared=0.805; leader=0.1->0.0
+14.3245,submitted,0.0,structure,,V=0.8785; alternative=0.7208; immediate=0.8540
+14.3245,start,0.0,structure,struct,stage=1; batch=B1/compute
+14.3245,wait,,,,wait_for_report
+17.1544,complete,0.0,structure,struct,stage=1
+17.1544,start,0.0,structure,review,stage=2; batch=B1/compute
+17.1544,wait,,,,wait_for_report
+17.8637,complete,0.0,structure,review,stage=2
+17.8637,qc_released,0.0,structure,review,+; p_candidate=0.973; P_shared=0.827; leader=0.0->0.0
+17.8637,submitted,0.0,fit,,V=0.9213; alternative=0.9162; immediate=0.9162
+17.8637,start,0.0,fit,dft,stage=1; batch=B1/compute
+17.8637,wait,,,,wait_for_report
+19.7093,complete,0.0,fit,dft,stage=1
+19.7093,start,0.0,fit,gpu,stage=2; batch=B1/compute
+19.7093,wait,,,,wait_for_report
+22.971,complete,0.0,fit,gpu,stage=2
+22.971,start,0.0,fit,dft,stage=3; batch=B1/compute
+22.971,wait,,,,wait_for_report
+24.5886,complete,0.0,fit,dft,stage=3
+24.5886,start,0.0,fit,review,stage=4; batch=B1/compute
+24.5886,wait,,,,wait_for_report
+25.6663,complete,0.0,fit,review,stage=4
+25.6663,rollback,0.0,fit,review,holdout rejected
+25.6663,qc_released,0.0,fit,review,rejected; p_candidate=0.973; P_shared=0.827; leader=0.0->0.0
+25.6663,submitted,0.0,md,,V=0.9240; alternative=0.9162; immediate=0.9162
+25.6663,start,0.0,md,gpu,stage=1; batch=B1/compute
+25.6663,wait,,,,wait_for_report
+28.4761,complete,0.0,md,gpu,stage=1
+28.4761,start,0.0,md,review,stage=2; batch=B1/compute
+28.4761,wait,,,,wait_for_report
+29.0858,complete,0.0,md,review,stage=2
+29.0858,qc_released,0.0,md,review,-; p_candidate=0.985; P_shared=0.843; leader=0.0->0.0
+29.0858,wait,,,,small_increment
+38.7618,lock,0.0,confirm,,floor=0.68; posterior=0.9853; eligible=7
+38.7618,submitted,0.0,confirm,,reserved independent powder B2
+38.7618,start,0.0,confirm,furnace,stage=1; batch=B2
+47.7863,complete,0.0,confirm,furnace,stage=1
+47.7863,start,0.0,confirm,pellet,stage=2; batch=B2
+50.8599,complete,0.0,confirm,pellet,stage=2
+50.8599,start,0.0,confirm,review,stage=3; batch=B2
+52.8359,complete,0.0,confirm,review,stage=3
+52.8359,independent_release,0.0,confirm,review,-

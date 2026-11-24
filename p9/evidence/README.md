@@ -5,6 +5,7 @@
 | 文件 | 如何使用 |
 |---|---|
 | [Mo 七组成](mo_s1.csv) / [组别与来源](MO_BENCHMARK.md) / [额外诊断对照](diagnostic_groups.csv) | 25 ℃ 七个宏观电导的点值、排名及来源。自制原料的压实子实验和商业/自制活化能另表 |
+| [扰动临界因子](ordering_margins.csv) / [确定性排序压力表](ordering_stress.csv) | 用同一乘除因子分别扰动七个电导点，逐对求区间开始相交的位置。重算命令为 `python p9/evidence/ordering_robustness.py` |
 | [来源指纹](source_manifest.csv) / [公共原子与材料数据](data_access.csv) | 区分已取得的完整文件、已查局部、只有作者声明、待申请和待新增。表内 SHA 的对象标明，不把响应文件散列当成整个数据集散列 |
 | [可观测结构先验](external_occupancy.csv) / [结构方法与论文](STRUCTURE_LITERATURE.md) | 可追溯的母体 4a/4d 占位与实验条件。候选构型族的后验权重需另外估计 |
 | [Bath 样本结果](bath_prefix_audit.json) / [复算](audit_bath_prefix.py) | 从 44 GB 公开归档的 60 MiB 前缀读取完整 VASP XML 成员，核对一个结构的 E/F/stress |

@@ -1,0 +1,4 @@
+case,seed,myopic_selected,tree_fit_selected,myopic_success,tree_fit_success,tree_fit_cost
+one_step_confirms_two_step_misses,874061,0,2,1,0,1640.0
+two_step_confirms_one_step_misses,874039,4,2,0,1,2325.0
+proactive_concurrent_evidence,874033,1,5,1,1,2185.0

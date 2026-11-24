@@ -1,0 +1,42 @@
+{
+  "compositions": [
+    0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6
+  ],
+  "freeze_h": 32,
+  "horizon_h": 72,
+  "budget_diagnostic": 2100,
+  "confirm_slots": 1,
+  "posterior_floor": 0.68,
+  "minimum_action_gain": 0.004,
+  "maximum_inflight": 2,
+  "max_outer_branch_actions": 3,
+  "p_global_risk": 0.32,
+  "p_local_bias_by_global": [
+    0.09,
+    0.64
+  ],
+  "p_contact": 0.3,
+  "confirm_sensitivity": 0.94,
+  "confirm_specificity": 0.975,
+  "acceptance": 0.68,
+  "fit_repair": 0.75,
+  "global_seed": 874031,
+  "scenario_note": "D/E 等级的设计点；筛查粉体每组成可供两次追加湿法分样，另留一份独立新批名额。试验预算不含只在冻结后启动的新批费用。",
+  "local_domains": [
+    "A",
+    "B",
+    "A",
+    "B",
+    "A",
+    "B",
+    "A"
+  ],
+  "batch_pass_if_target": 0.94,
+  "batch_pass_if_nontarget": 0.1
+}

@@ -1,0 +1,21 @@
+{
+  "baseline_n": 1024,
+  "stress_n": 256,
+  "dev_n": 192,
+  "heldout_n": 512,
+  "baseline_seed": 874031,
+  "dev_seed": 908100,
+  "heldout_seed": 912500,
+  "trace_seed": 874039,
+  "heldout_floors": {
+    "gate": 0.58,
+    "myopic": 0.58,
+    "tree": 0.58,
+    "tree_fit": 0.58
+  },
+  "outer_rows": 12288,
+  "test_rows": 2048,
+  "development_runs": 4608,
+  "ci_method": "paired mean difference ± 1.96*SE across common seven-composition queues; Monte Carlo error only",
+  "synthetic_design": true
+}

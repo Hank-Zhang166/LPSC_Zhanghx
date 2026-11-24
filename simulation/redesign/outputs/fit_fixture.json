@@ -1,0 +1,21 @@
+{
+  "profile": 9,
+  "seed": 933471,
+  "conditional_branches": [
+    1,
+    0
+  ],
+  "source": "First sampled joint design with a voluntary fit; forcing accept/reject illustrates implementation only.",
+  "overrides": {
+    "freeze_h": 38.76182562922925,
+    "speed": {
+      "review": 1.1452267392408852
+    },
+    "budget_diagnostic": 2538,
+    "screen_quality": 0.8023475370825748,
+    "truth_global": 0.2547973905702665,
+    "truth_repair": 0.04770290224576279,
+    "batch_pass_if_target": 0.8361587191825541,
+    "batch_pass_if_nontarget": 0.16384128081744587
+  }
+}
