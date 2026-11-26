@@ -1,4 +1,4 @@
-"""Build school-format P9 Word and PDF using the shared P8 text/field helpers."""
+"""Build the P9 proposal and its numbered bibliography in the school format."""
 from copy import deepcopy
 from itertools import groupby
 import json
@@ -9,7 +9,6 @@ import base64
 import os
 import re
 import subprocess
-import sys
 from pathlib import Path
 
 from docx import Document
@@ -22,15 +21,9 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-sys.path.insert(0, str(ROOT / "paper"))
-import build_manuscript as shared
-from school_math import add_inline, display
+import word_layout as shared
+from school_math import display
 
-PLAIN = shared.text
-def manuscript_text(paragraph, value):
-    return add_inline(paragraph, value, PLAIN)
-
-shared.text = manuscript_text
 OUTPUT = ROOT / "p9/交付稿"
 
 
@@ -92,7 +85,7 @@ def compose():
     body = re.sub(r"@@REF:([\w-]+)@@", lambda m: crossrefs[m[1]], body)
     if re.search(r"@@(?!MATH\b|REFERENCES@@)[A-Za-z][A-Za-z_:.-]+@@", body):
         raise ValueError("Unresolved authoring marker in manuscript")
-    raw_refs = read(ROOT / "paper/manuscript_des.md") + "\n" + read(HERE / "reference_additions.md")
+    raw_refs = read(ROOT / "p9/revision_text/references.md")
     refs = {int(k): v for k, v in re.findall(r"(?m)^\[(\d+)\] (.+)$", raw_refs)}
     order = {}
 
@@ -127,11 +120,9 @@ def compose():
 def locate_template(explicit, existing):
     if explicit:
         return Path(explicit)
-    name = "20261103-综合论文训练论文-开题报告模板.docx"
-    found = list((Path.home() / "Desktop" / "毕设").glob("*/" + name))
-    if found:
-        return found[0]
-    for saved in (existing, OUTPUT / "开题报告_P9.docx"):
+    # Use the checked-in P9 cover on a fresh clone; a new school template
+    # may be supplied with --template without changing the repository.
+    for saved in (OUTPUT / "开题报告_P9.docx", existing):
         if saved.is_file():
             return saved
     raise FileNotFoundError("Pass --template with the Tsinghua proposal template.")
@@ -208,7 +199,7 @@ def configure(doc):
     make_style(doc, "P9 source", "宋体", "Times New Roman", 11, left, before=6, after=12, line=0)
     make_style(doc, "P9 entry", "宋体", "Times New Roman", 12, left)
     make_style(doc, "P9 equation", "Cambria Math", "Cambria Math", 12, centered, before=6, after=6, line=0)
-    for style in ("P8 table", "P8 table header"):
+    for style in ("P9 table", "P9 table header"):
         make_style(doc, style, "宋体", "Times New Roman", 11, centered, before=3, after=3, line=0)
     ref = make_style(doc, "P9 reference", "宋体", "Times New Roman", 11, left, before=3, line=16)
     ref.paragraph_format.keep_together = True
@@ -217,7 +208,7 @@ def configure(doc):
     for node in list(doc.styles["Title"].element.iter(qn("w:pBdr"))):
         node.getparent().remove(node)
     shared.secsetup(doc.sections[0], True)
-    for st in ("P9 body","Heading 1","Heading 2","Heading 3","P8 table","P8 table header"):
+    for st in ("P9 body","Heading 1","Heading 2","Heading 3","P9 table","P9 table header"):
         pr = doc.styles[st].element.get_or_add_pPr()
         prop = pr.find(qn("w:snapToGrid"))
         if prop is None:

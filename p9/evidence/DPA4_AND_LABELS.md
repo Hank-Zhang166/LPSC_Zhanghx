@@ -1,20 +1,26 @@
-# 模型权重、使用条件和可训练标签
+# DPA4 检查点、原子参考和发布条件
 
-## 冻结可复核接口
+本项目于 2026-11-24 核对 DeePMD-kit v3.2.0 的代码、文档和模型发布记录。七组成的物理试验仍在规划阶段。正式任务用下表识别拟检验的模型，跨机器复算时应固定检查点、元素映射、后端与精度。[DeePMD-kit v3.2.0](https://github.com/deepmodeling/deepmd-kit/releases/tag/v3.2.0) · [版本化模型卡](https://huggingface.co/deepmodelingcommunity/DPA4-OMat24/tree/173bfd5a26f90a756ee891777270ef117078d9be)
 
-2026-11-24 读取 DeePMD-kit 官方 release API、版本化文档、许可证和 Hugging Face 模型 API（含 LFS 指针）。当日 latest 标记 v3.2.0，发布于 2026-08-19，标签提交为 `8cfd46e37448feca361ff3427a6c2b514ce5a2bb`。软件采用 GNU Lesser General Public License v3.0；模型、数据采用各自的许可。所核 OMat24 仓库固定版本为 `173bfd5a26f90a756ee891777270ef117078d9be`，模型卡列 CC BY-NC 4.0。对产业合作需先核对拟用场景及权重使用权。代码开源并不将第三方权重改成可商用许可。[DeePMD-kit 发布](https://github.com/deepmodeling/deepmd-kit/releases/tag/v3.2.0)；[软件条款](https://github.com/deepmodeling/deepmd-kit/blob/v3.2.0/LICENSE)；[模型仓库](https://huggingface.co/deepmodelingcommunity/DPA4-OMat24/tree/173bfd5a26f90a756ee891777270ef117078d9be)。
+| 对象 | 冻结身份与来源 | P9 的用途 |
+| --- | --- | --- |
+| DeePMD-kit | v3.2.0，提交 8cfd46e37448feca361ff3427a6c2b514ce5a2bb。[软件许可](https://github.com/deepmodeling/deepmd-kit/blob/v3.2.0/LICENSE) | 核对 PyTorch 推断、训练、特征处理及导出接口 |
+| DPA4-Plus-OMat24-v20260805 | .pt 的 LFS SHA-256 为 6820a320dc241a4002e6c257ad21983950df178b1f80271a6e6af199adb18567 | 比较关键 Li 邻域力、迁移能差和相同硬件的轨迹成本 |
+| DPA4-Neo-OMat24-v20260805 | .pt 的 LFS SHA-256 为 fd7f34ae28f921201e4a0328ddf56179892752084f8363e7796038201471c989 | 与 Plus 在相同结构和目标采样精度下作对照 |
+| DPA-SSE | [AIS 模型卡 #266](https://backend.aissquare.com/dpa/detail/models?type=models&id=266&name=SSE-VASP-dpa2)登记 SSE-VASP-dpa2.pt，120,922,466 字节 | DPA-2 领域势在相同几何上独立评估。分组标明可能与其训练数据重叠的结构。 |
 
-| 同一组成和构型的候选 | 实际文件 / SHA-256 | 对照目的 |
-|---|---|---|
-| DPA4-Plus-OMat24-v20260805 | *.pt；6820a320dc241a4002e6c257ad21983950df178b1f80271a6e6af199adb18567 | 精度候选，先用冻结模型核对关键 Li 邻域、迁移能差和耗时 |
-| DPA4-Neo-OMat24-v20260805 | *.pt；fd7f34ae28f921201e4a0328ddf56179892752084f8363e7796038201471c989 | 较轻量候选，比较等轨迹质量下的成本 |
-| DPA-SSE（DPA-2） | AIS 数据 #217（数据 CC BY 4.0）；[模型卡 #266](https://backend.aissquare.com/dpa/detail/models?type=models&id=266&name=SSE-VASP-dpa2) 标注 LGPL-3.0，列 SSE-VASP-dpa2.pt（120,922,466 字节），冻结领域势单独运行 | 与硫化物领域势作被试相同几何的强对照，避免预训练重叠；不把 DPA-2 权重传给 DPA4 初始化 |
+OMat24 模型库的固定提交为 173bfd5a26f90a756ee891777270ef117078d9be，模型卡给出的权重许可为 CC BY-NC 4.0。DeePMD-kit 软件与 DPA-SSE 模型卡分别标示 LGPL-3.0，AIS #217 的数据卡标示 CC BY 4.0。产业合作需按实际权重和拟用范围核对授权。登记的 Plus/Neo 哈希来自上游大文件指针；本项目核对了指针和元数据，权重文件未随仓库分发。[文件范围和来源指纹](source_manifest.csv) · [数据版本与许可](data_access.csv)
 
-大文件 SHA 是模型仓库公布的 LFS SHA。本次未下载权重、启动微调或部署到宜宾。DeePMD 原生训练的模型输入、损失和后处理详见 [架构](../../docs/DPA4_ARCHITECTURE.md) 与 [训练模式](../../docs/MODEL_TRAINING.md)。与七组成相容的数据拆分和版本管理在本轮任务中单独冻结。
+## 单构型到输运分布
 
-## 决策与可执行条件
+1. 为一个结构族生成满足计量和电荷约束的整数超胞。以 x＝0.4、20 个 P 为例，计量为 Li₁₁₂P₂₀S₉₂Cl₂₈；相同计量可有多种 S/Cl 和 Li 空位排布。记录父结构、族标识、采样规则、周期边界以及原子索引。
+2. 每帧输入为元素映射和类型索引、笛卡尔坐标 R（N × 3，Å）及晶胞 H（3 × 3，Å）。能量分支读出标量总势能 E（eV），原子力 F 为 E 对坐标的负梯度（eV/Å）。virial Ξ 为每帧 3 × 3 的能量量纲张量。应力与 virial 对齐前须核实符号、体积、分量排序、单位和是否含动能项。用同一几何的原子置换、刚体转动、小位移和小应变作数值检查。[结构输入](https://github.com/deepmodeling/deepmd-kit/blob/v3.2.0/doc/data/system.md) · [能量与 virial 定义](https://github.com/deepmodeling/deepmd-kit/blob/v3.2.0/doc/model/train-energy.md)
+3. 用经原子参考检查的势运行独立初态轨迹；以拟合窗、跃迁统计和跨种子误差检验输运收敛。按研究中定义的结构族后验和共享误差，生成配方间优势、反向和近似并列三种概率。压片总电导在另一实验层级记录；训练势的监督仍来自同一构型的原子参考。[概率排序与算例](../ranking/README.md) · [新批及留出协议](../protocol/VALIDATION.md)
 
-1. 压片排序不一致先拆成样品映射、结构支持/权重、MD 采样或势误差的可并存解释，记录哪一类行动可改变冻结前的选择。接触/密度证据、新相或跳跃不足可分别触发复测、修改输入或延长 MD。
-2. 同一几何上独立诊断 DFT 能够检验局域误差。诊断、训练及最终验收分别建池，按轨迹/环境族/化学组成封存，不能将诊断后的构型重新别名送入终验。补标优先度是“可能改变关键决策的后验质量 × 局域误差/覆盖 × 诊断的区分能力 ÷ 边际成本”的待检验规则。保留冷门但对反转敏感的迁移族。
-3. 如误差且值得更新，先用明确的 PyTorch 原生 `dp --pt train input.json --finetune <checkpoint.pt>` 路线，在受支持的数值环境做类型表、checkpoint 和单步预检；仅把独立 DFT 的 E、F 及已校准 virial 输入能量任务损失。DPA-ADAPT 的 DPA3 专用包装器不能因同一项目维护而视为兼容所有权重。LoRA 先核对该检查点描述符、脚本的可训练参数掩码和独立组留出，见 [v3.2.0 微调](https://docs.deepmodeling.com/projects/deepmd/en/v3.2.0/train/finetuning.html)、[LoRA 代码](https://github.com/deepmodeling/deepmd-kit/blob/v3.2.0/deepmd/pt/model/descriptor/sezm_nn/lora.py)。
-4. 除总体 E/F，还要查看 Li、缺陷和迁移近邻的分层误差、相对能量、源域保持、热稳定及独立 MD 排序。在固定结构池/权重/协议下评估旧势与新势，另行评估联合更新。验收未过或来不及发布时，保留旧势、记录失败和重算范围；吞吐不足且学生满足独立 DFT、MD 及无偏排序后才讨论蒸馏。
+## 训练和独立验收
+
+第一个问题是新证据会改变哪项行动。成相或局域占位证据用于修订结构支持和权重，有效跳跃不足用于追加独立轨迹，压片与接触问题由同粉分样或新批处理。独立同构型 DFT 证实关键局域偏差后，再根据冻结时间、队列和验收成本决定是否启动定向补标。诊断参考、训练标签、最终盲测三个池按父结构、近重复族与轨迹隔离。[七组成 G0–G3 对照与盲测](../protocol/VALIDATION.md)
+
+实际训练前对同一帧核实元素顺序、参考泛函、赝势、收敛和缺失标签标志。总能、力和可用 virial 分别计算损失，明确有效原子数、归一化方式和对应训练权重；应力口径未对齐时保留缺失标志并关闭该项监督。只有相同参考口径的绝对能才能直接合并。固定中间组成与局域结构的留出片段，分别检查总能差、力的尾部、迁移能差和源域保持，再按相同计算协议比较独立 MD。[能量任务损失实现](https://github.com/deepmodeling/deepmd-kit/blob/v3.2.0/deepmd/pt/loss/ener.py)
+
+PyTorch 原生微调入口为 `dp --pt train input.json --finetune CHECKPOINT.pt`。取得拟用权重后先做一帧预检；如使用低秩适配，记录该版本实际开放的参数及合并后导出的一致性。验收记录绑定模型 ID、父版本、证据发布时间和重算的局域范围。若新势未通过，或重算无法赶上仍可改变的决定，继续保留已验收版本。[v3.2.0 微调文档](https://docs.deepmodeling.com/projects/deepmd/en/v3.2.0/train/finetuning.html) · [LoRA 实现](https://github.com/deepmodeling/deepmd-kit/blob/v3.2.0/deepmd/pt/model/descriptor/sezm_nn/lora.py)

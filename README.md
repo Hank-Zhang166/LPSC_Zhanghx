@@ -1,40 +1,35 @@
 # 氯富集硫银锗矿的概率排序与资源受限研发决策
 
-[文字版 PDF](p9/交付稿/开题报告_P9.pdf) · [可编辑 Word](p9/交付稿/开题报告_P9.docx) · [汇报 PDF](p9/交付稿/汇报版开题报告_P9.pdf) · [PowerPoint](p9/交付稿/汇报版开题报告_P9.pptx) · [逐页汇报词](p9/交付稿/P9_逐页汇报词.docx)
+**当七个配方只剩一个独立新批确认名额，应该给谁？** 本研究以氯富集硫银锗矿 Li₆₋ₓPS₅₋ₓCl₁₊ₓ 为例，考察一个实验室如何利用构型、模拟和压片证据，在期限内决定补测、等待、并行或锁定配方。当前研究版本为 **P9.1**。
 
-项目研究七个名义组成在相同主要工艺下的研发决策。Mo 等的公开压片数据中，x＝0.4 的室温总电导高于 0.5。若计算倾向相反，应该先查构型权重、轨迹、样品还是局域势误差？新版本用这一对组成解释概率排序，再让全体七种组成在给定资源日历内竞争一个独立确认名额。
+**阅读报告**　[正文 PDF](p9/交付稿/开题报告_P9.pdf) · [可在线阅读的全文](p9/paper/开题报告_P9_文稿.md) · [可编辑 Word](p9/交付稿/开题报告_P9.docx)
 
-| 想复核什么 | 到哪里看 |
-| --- | --- |
-| 哪些是实测，哪些仍缺数据 | [证据登记](p9/evidence/README.md)、[历史点值的扰动边界](p9/evidence/ordering_stress.csv)、[宜宾现场待核实项](p9/evidence/site_calibration.csv) |
-| 七组成如何从构型得到分布 | [排序算法与合成算例](p9/ranking/README.md)、[每个配方对的三种概率](p9/ranking/outputs/pairwise.csv) |
-| 单个确认名额如何分配 | [本次重构的仿真](simulation/redesign/README.md)、[主表](simulation/redesign/outputs/policy_summary.csv)、[配对差](simulation/redesign/outputs/paired_effects.csv)、[事件回放](simulation/redesign/outputs/events.csv) |
-| 哪些研究还需要现场与计算支持 | [预注册与独立验收](p9/protocol/VALIDATION.md)、[DPA4及标签检查](p9/evidence/DPA4_AND_LABELS.md)、[技术附录](P9_技术附录.md) |
-| 本次逐项改了什么 | [修订和验证记录](p9/复核与变更.md) |
+**准备汇报**　[汇报 PDF](p9/交付稿/汇报版开题报告_P9.pdf) · [可编辑 PowerPoint](p9/交付稿/汇报版开题报告_P9.pptx) · [逐页讲稿](p9/交付稿/P9_逐页汇报词.docx)
 
-## 下一次迭代
+![同一名义组成的构型与压片分别产生证据，研发调度根据证据发布时间和剩余资源选择下一项行动。](p9/revision_visuals/architecture.png)
 
-只读或手工修改正式稿，打开 [交付稿](p9/交付稿)。正文的可复现写作入口是 [report.md](p9/revision_text/report.md)，九个编号式的数学源在 [equations.json](p9/revision_text/equations.json)。第 2 章的公开点值敏感性与第 7 章的仿真结果分别引入 [历史扰动分析](p9/evidence/ordering_insert.md) 和 [政策结果](simulation/redesign/results.md)。[图题和来源](p9/revision_visuals/manifest.json)由正文和科研图共用。[逐页稿源](p9/paper/speaker_script.json)同时写入 PowerPoint 备注与讲稿 Word。
+## 从哪个结果读起
 
-直接在 Word 或 PowerPoint 做过修改时，先将修改保存到版本历史，并把需要长期保留的内容同步回对应源文件。重新构建会替换交付稿中的同名文件。可先用 `python p9/paper/build_report.py --out 预览` 生成候选正文，核对后再更新正式稿。教师姓名和职称可用 `--adviser "姓名 职称"` 写入封面。
+| 想回答的问题 | 当前证据 | 复核入口 |
+| --- | --- | --- |
+| 已测过的配方如何排序？ | Mo 等的同系列压片在 25 ℃ 下，x＝0.4 为 8.2 mS/cm，x＝0.5 为 5.9 mS/cm。原表未报告独立批间误差。 | [七个实测点](p9/evidence/mo_s1.csv) · [实验条件与来源](p9/evidence/MO_BENCHMARK.md) |
+| 同一配方有多种结构时，怎样比较晶内输运？ | 用结构证据更新各族权重，再计算两配方的优势、反向优势和近似并列概率。目前的代码用明确标记的合成输入验证这一步。 | [排序方法](p9/ranking/README.md) · [三态概率表](p9/ranking/outputs/pairwise.csv) |
+| 冻结前再等一份报告，值不值得？ | 在 1,024 个配对情景中，两步前瞻比单步平均少花 221.24 情景元。确认成功率差为 +0.49 个百分点，95% 配对区间为 −0.91 至 +1.88 个百分点。 | [系统试验](simulation/redesign/README.md) · [配对比较](simulation/redesign/outputs/paired_effects.csv) · [一次实际运行的事件流水](simulation/redesign/outputs/events.csv) |
+| 如何转入物理验证？ | 方案区分同粉分样和独立新批，并为原子层验收留出参考标签。新批实验、真实 DPA4 训练及宜宾现场节拍校准仍待开展。 | [实验与验收协议](p9/protocol/VALIDATION.md) · [现场待核实项](p9/evidence/site_calibration.csv) |
 
-按需从仓库根目录运行相应阶段。数值部分使用 Python 与 NumPy；科研图使用 Matplotlib、Pillow 和各图构建脚本所列依赖。正式稿使用 python-docx、python-pptx、Pillow、lxml、latex2mathml（本次 3.79.0）、pypdf，及装有黑体、宋体和 Cambria Math 的 Windows Word/PowerPoint。公式通过 Office 自带的 MML2OMML.XSL 生成。首次从空产物构建可用 `--template` 指定学校原版模板。
+## 在本地复核
 
-~~~powershell
-python p9/evidence/ordering_robustness.py
-python p9/ranking/run_demo.py
+克隆仓库后，在仓库根目录使用 Python 3.11 或更高版本运行以下命令。它们可以复核已发布数据、排序和仿真，无需 GPU 或 Office。
+
+~~~bash
+python -m pip install -r requirements.txt
 python -m unittest discover -s p9/ranking -p "test_*.py"
-python simulation/redesign/run_study.py --workers 8
-python simulation/redesign/sensitivity.py --workers 8
-python simulation/redesign/fit_fixture.py
-python simulation/redesign/register.py
 python simulation/redesign/verify.py
-python p9/revision_visuals/build.py --model
-python p9/paper/build_report.py
-python p9/paper/build_briefing.py --export-pdf
 python p9/paper/verify_p9.py
 ~~~
 
-若检验的是政策效果，应按上述次序核对配置、运行结果、正文数字与图；仅修改文字时可直接复用已归档且有来源的结果表。冻结的首轮研究包括两个七组成筛查区组和两个入围配方的独立确认。本次情景仿真专门检验其中资源收紧到单个名额时的决策。
+要查看独立新批怎样改变一次提名，可从[代表性回放](simulation/redesign/results.md)进入；要从原始参数重新生成全套结果，请使用[完整试验命令](simulation/redesign/README.md)。
 
-[上一版 P9](https://github.com/Hank-Zhang166/LPSC_Zhanghx/tree/00a3827001f9f4075add2a0761a18051560a1e97)和[P8](https://github.com/Hank-Zhang166/LPSC_Zhanghx/tree/10ed7881d2509c814581bdd6659f6d2ac129c099)可按快照追溯；旧七候选仿真在 `simulation/p9`，24 候选历史试验在 `simulation/outputs`。
+## 参与共创
+
+补充公开数据、修改策略或编辑报告时，[协作指南](CONTRIBUTING.md)列出了对应的源文件、检查命令和生成物。进一步阅读可从[技术附录](P9_技术附录.md)和[研究状态与验证记录](p9/研究状态.md)进入。引用本研究时请注明版本和提交，原始数据与模型的使用条件见[第三方来源](THIRD_PARTY_NOTICES.md)和[本项目使用说明](LICENSE)。

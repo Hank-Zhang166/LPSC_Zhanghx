@@ -1,9 +1,9 @@
 group_id,x,feedstock,condition,quantity,value,unit,temperature_C,location,source_url
-S_press,0.3,S-Li2S (self-made),cold,sigma,4.4,mS/cm,25,main Fig.9 + p8; SI Fig.S6 for .3/.5,https://doi.org/10.1016/j.jallcom.2023.172727
-S_press,0.3,S-Li2S (self-made),hot,sigma,5.9,mS/cm,25,main Fig.9 + p8; SI Fig.S6 for .3/.5,https://doi.org/10.1016/j.jallcom.2023.172727
-S_press,0.4,S-Li2S (self-made),cold,sigma,6.3,mS/cm,25,main Fig.9 + p8; SI Fig.S6 for .3/.5,https://doi.org/10.1016/j.jallcom.2023.172727
-S_press,0.4,S-Li2S (self-made),hot,sigma,8.6,mS/cm,25,main Fig.9 + p8; SI Fig.S6 for .3/.5,https://doi.org/10.1016/j.jallcom.2023.172727
-S_press,0.5,S-Li2S (self-made),cold,sigma,5.0,mS/cm,25,main Fig.9 + p8; SI Fig.S6 for .3/.5,https://doi.org/10.1016/j.jallcom.2023.172727
-S_press,0.5,S-Li2S (self-made),hot,sigma,6.7,mS/cm,25,main Fig.9 + p8; SI Fig.S6 for .3/.5,https://doi.org/10.1016/j.jallcom.2023.172727
-C_S_activation,0.4,commercial Li2S,temperature-dependent EIS,activation_energy,0.217,eV,temperature series,main p6; SI Fig.S5,https://doi.org/10.1016/j.jallcom.2023.172727
-C_S_activation,0.4,self-made Li2S,temperature-dependent EIS,activation_energy,0.222,eV,temperature series,main p6; SI Fig.S5,https://doi.org/10.1016/j.jallcom.2023.172727
+S_press,0.3,S-Li2S (self-made),cold,sigma,4.4,mS/cm,25,"main Fig. 9, page 8; SI Fig.S6 for .3/.5",https://doi.org/10.1016/j.jallcom.2023.172727
+S_press,0.3,S-Li2S (self-made),hot,sigma,5.9,mS/cm,25,"main Fig. 9, page 8; SI Fig.S6 for .3/.5",https://doi.org/10.1016/j.jallcom.2023.172727
+S_press,0.4,S-Li2S (self-made),cold,sigma,6.3,mS/cm,25,"main Fig. 9, page 8; SI Fig.S6 for .3/.5",https://doi.org/10.1016/j.jallcom.2023.172727
+S_press,0.4,S-Li2S (self-made),hot,sigma,8.6,mS/cm,25,"main Fig. 9, page 8; SI Fig.S6 for .3/.5",https://doi.org/10.1016/j.jallcom.2023.172727
+S_press,0.5,S-Li2S (self-made),cold,sigma,5.0,mS/cm,25,"main Fig. 9, page 8; SI Fig.S6 for .3/.5",https://doi.org/10.1016/j.jallcom.2023.172727
+S_press,0.5,S-Li2S (self-made),hot,sigma,6.7,mS/cm,25,"main Fig. 9, page 8; SI Fig.S6 for .3/.5",https://doi.org/10.1016/j.jallcom.2023.172727
+C_S_activation,0.4,commercial Li2S,temperature-dependent EIS,activation_energy,0.217,eV,temperature series,main page 6; SI Fig.S5,https://doi.org/10.1016/j.jallcom.2023.172727
+C_S_activation,0.4,self-made Li2S,temperature-dependent EIS,activation_energy,0.222,eV,temperature series,main page 6; SI Fig.S5,https://doi.org/10.1016/j.jallcom.2023.172727

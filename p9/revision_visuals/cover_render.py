@@ -3,7 +3,7 @@ from pathlib import Path
 import bpy
 from mathutils import Vector
 out = Path(__file__).resolve().parent
-bpy.ops.wm.open_mainfile(filepath=str(out.parents[1] / "figures/blender/pellet.blend"))
+bpy.ops.wm.open_mainfile(filepath=str(out / "blender/pellet.blend"))
 scene = bpy.context.scene
 # Offset the upper contact to reveal the grain boundary network in the powder pellet.
 bpy.data.objects["Upper blocking electrode"].location += Vector((-.25,.50,.23))

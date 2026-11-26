@@ -1,6 +1,6 @@
 # 构型概率排序演示
 
-示例以随机选择一个结构族的相对晶内输运 $S_x=\log(\sigma_{\mathrm{grain},x}/\sigma_\mathrm{ref})$ 为决策变量，同时传播该族潜在输运量的不确定性。$\sigma_\mathrm{ref}$ 是演示模型的任意标度。构型族是合成假说，权重表达给定热历史和结构观测条件下的假说概率。要把概率解释为样品域的体积分数，还需建立和验证空间混合、连通性及观测模型。
+示例以随机选择一个结构族的相对晶内输运 $S_x=\log(\sigma_{\mathrm{grain},x}/\sigma_\mathrm{ref})$ 为决策变量，同时传播该族潜在输运量的不确定性。$\sigma_\mathrm{ref}$ 是演示模型的任意标度。每次联合抽样从各组成的相容结构族中各取一族，权重给出该模型在指定热历史和结构观测下抽中各族的概率。示例中的族及其输运数据均为合成。要把概率解释为样品域的体积分数，还需建立和验证空间混合、连通性及观测模型。
 
 ## 运行和复核
 
@@ -60,14 +60,14 @@ python -m unittest discover -s p9/ranking -p "test_*.py" -v
 
 | 文件 | 读取方法与内容 |
 | --- | --- |
-| `pairwise.csv` | 主方法筛 `method=bme, primary_delta=true` 得 49 行。`x_a` 是行、`x_b` 是列，`p_plus/p_minus/p_tie` 和为 1。概率同时有 Monte Carlo 标准误与情景分位数 |
-| `weighted_ecdf.csv` | 按 `method,x` 分组，横轴 `log_relative_transport`，纵轴 `ecdf` |
-| `coupling_sensitivity.csv` | 固定主阈及两侧边际，比较同情景联合抽样和错误删除共享依赖的边际乘积分布 |
-| `family_weights.csv`、`metadata.json` | 族计数、前向代理量、合成能量和退火情景的先验/更新权重、区间及运行配置 |
-| `structure_diagnostics.csv`、`structure_support_stress.csv` | 中央情景的 $\lambda$、训练及留出代理、权重退化诊断和支持外反例 |
-| `composition_summary.csv` | 各组成的 Top-1、Top-3 和示意晶内阈值概率 |
-| `public_direction.csv` | 与 Mo 七种配方的 21 个历史点值方向对照，含 0、0.1、0.3 mS/cm 阈敏 |
-| `des_structure_prior.csv` | `x,structure_state,prior_probability,synthetic_only`，每组 3 行、和为 1。合成热先验在结构证据之前聚合，供 DES 初始化 |
+| [pairwise.csv](outputs/pairwise.csv) | 主方法筛 `method=bme, primary_delta=true` 得 49 行。`x_a` 是行、`x_b` 是列，`p_plus/p_minus/p_tie` 和为 1。概率同时有 Monte Carlo 标准误与情景分位数 |
+| [weighted_ecdf.csv](outputs/weighted_ecdf.csv) | 按 `method,x` 分组，横轴 `log_relative_transport`，纵轴 `ecdf` |
+| [coupling_sensitivity.csv](outputs/coupling_sensitivity.csv) | 固定主阈及两侧边际，比较同情景联合抽样和错误删除共享依赖的边际乘积分布 |
+| [family_weights.csv](outputs/family_weights.csv)、[metadata.json](outputs/metadata.json) | 族计数、前向代理量、合成能量和退火情景的先验/更新权重、区间及运行配置 |
+| [structure_diagnostics.csv](outputs/structure_diagnostics.csv)、[structure_support_stress.csv](outputs/structure_support_stress.csv) | 中央情景的 $\lambda$、训练及留出代理、权重退化诊断和支持外反例 |
+| [composition_summary.csv](outputs/composition_summary.csv) | 各组成的 Top-1、Top-3 和示意晶内阈值概率 |
+| [public_direction.csv](outputs/public_direction.csv) | 与 Mo 七种配方的 21 个历史点值方向对照，含 0、0.1、0.3 mS/cm 阈敏 |
+| [des_structure_prior.csv](outputs/des_structure_prior.csv) | `x,structure_state,prior_probability,synthetic_only`，每组 3 行、和为 1。合成热先验在结构证据之前聚合，供 DES 初始化 |
 
 历史方向按差值超过指定 mS/cm 门槛判定。计算端一侧的优势点值至少 0.67 且相应情景下分位大于 0.5 时给方向，近似并列概率至少 0.5 时给近似并列，否则标为不确定。七项历史值来自同一公开开发/回顾性研究，配方共享这些观测之间的依赖，21 对只作工作流展示。Table S1 未提供独立批误差，绝对差与方向支持字段不构成压片优势概率、概率校准或显著性检验。
 

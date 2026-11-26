@@ -1,4 +1,4 @@
-"""Inspect a single independent Bath file in a bounded HTTP prefix, without storing the 44 GB archive.
+"""Inspect one complete Bath archive member in a bounded HTTP prefix, without storing the 44 GB archive.
 
 Run: python audit_bath_prefix.py
 Writes the result to stdout. The XML stresses follow VASP conventions and need conversion before training.

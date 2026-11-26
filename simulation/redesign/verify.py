@@ -150,5 +150,5 @@ if __name__=="__main__":
     suite=unittest.defaultTestLoader.loadTestsFromTestCase(Integrity)
     result=unittest.TextTestRunner(verbosity=2).run(suite)
     (OUT/"checks.json").write_text(json.dumps(dict(passed=result.wasSuccessful(),test_count=result.testsRun,
-           main_rows=12288,exact_replays=90,public_input_boundary=True),indent=2),encoding="utf-8")
+           main_rows=12288,exact_replays=90,public_input_boundary=True),indent=2),encoding="utf-8",newline="\n")
     raise SystemExit(0 if result.wasSuccessful() else 1)
