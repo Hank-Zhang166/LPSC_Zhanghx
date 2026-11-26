@@ -12,7 +12,12 @@
 
 仿真使用 Python（3.11 或以上）和 NumPy，支持 CPU 多进程。以下命令从仓库根目录运行。首次阅读可以直接核查随仓结果，包括 90 次精确回放、资源互斥、冻结截止、首批与新批的生成，以及验收结果的可见时刻。
 
+P9.1 发布结果使用 x86-64 OpenBLAS 的 Haswell 内核。两步前瞻首先按单步效用选取有限数量的候选。若两个效用只差一个浮点末位，矩阵归约方式就可能改变入选项及随后实际观测的证据。例如，种子 874039 在 8.1983 h 的下一步曾在两个默认内核下分别表现为提交与等待。当前结果的适用条件包括这一候选排序规则。跨内核的提名稳定性仍需单独评价。
+
+复现发布的队列与运行完整试验时，在支持 AVX2/FMA 的 x86-64 主机上使用 NumPy 的 OpenBLAS 构建。在启动 Python 前设置以下两项。Windows PowerShell 写作 `$env:OPENBLAS_CORETYPE='Haswell'` 和 `$env:OPENBLAS_NUM_THREADS='1'`；bash / zsh 命令如下。
+
 ```sh
+export OPENBLAS_CORETYPE=Haswell OPENBLAS_NUM_THREADS=1
 python simulation/redesign/verify.py
 ```
 

@@ -19,7 +19,14 @@
 
 ## 在本地复核
 
-克隆仓库后，在仓库根目录使用 Python 3.11 或更高版本运行以下命令。它们可以复核已发布数据、排序和仿真，无需 GPU 或 Office。
+克隆仓库后，在仓库根目录使用 Python 3.11 或更高版本运行以下命令。这些检查使用 CPU。逐事件复现 P9.1 时，请在支持 AVX2/FMA 的 x86-64 机器上使用 NumPy 的 OpenBLAS 构建，并在启动 Python 前按下表设置数值环境。
+
+| 终端 | 在当前终端执行 |
+| --- | --- |
+| bash / zsh | `export OPENBLAS_CORETYPE=Haswell OPENBLAS_NUM_THREADS=1` |
+| PowerShell | `$env:OPENBLAS_CORETYPE='Haswell'`，然后执行 `$env:OPENBLAS_NUM_THREADS='1'` |
+
+接近并列的候选可能因浮点求和次序而进入不同的两步搜索分支。[运行环境与回放说明](simulation/redesign/README.md#快速核查与完整重跑)记录了一个实际出现的例子。
 
 ~~~bash
 python -m pip install -r requirements.txt

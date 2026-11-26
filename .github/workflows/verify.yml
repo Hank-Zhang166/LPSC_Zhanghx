@@ -29,6 +29,9 @@ jobs:
       - name: Test the synthetic ranking model
         run: python -m unittest discover -s p9/ranking -p "test_*.py"
       - name: Replay the decision simulation
+        env:
+          OPENBLAS_CORETYPE: Haswell
+          OPENBLAS_NUM_THREADS: '1'
         run: python simulation/redesign/verify.py
       - name: Cross-check the published report and slides
         run: python p9/paper/verify_p9.py
